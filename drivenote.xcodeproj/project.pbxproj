@@ -1,0 +1,611 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 56;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		52ED7D662DB1D89400F9EFFB /* drivenoteApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52ED7D652DB1D89400F9EFFB /* drivenoteApp.swift */; };
+		52ED7D682DB1D89400F9EFFB /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52ED7D672DB1D89400F9EFFB /* ContentView.swift */; };
+		52ED7D6A2DB1D89800F9EFFB /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 52ED7D692DB1D89800F9EFFB /* Assets.xcassets */; };
+		52ED7D6D2DB1D89800F9EFFB /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 52ED7D6C2DB1D89800F9EFFB /* Preview Assets.xcassets */; };
+		52ED7D6F2DB1D89800F9EFFB /* Persistence.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52ED7D6E2DB1D89800F9EFFB /* Persistence.swift */; };
+		52ED7D722DB1D89800F9EFFB /* drivenote.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 52ED7D702DB1D89800F9EFFB /* drivenote.xcdatamodeld */; };
+		52ED7D7D2DB1D89900F9EFFB /* drivenoteTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52ED7D7C2DB1D89900F9EFFB /* drivenoteTests.swift */; };
+		52ED7D872DB1D89900F9EFFB /* drivenoteUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52ED7D862DB1D89900F9EFFB /* drivenoteUITests.swift */; };
+		52ED7D892DB1D89900F9EFFB /* drivenoteUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52ED7D882DB1D89900F9EFFB /* drivenoteUITestsLaunchTests.swift */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		52ED7D792DB1D89900F9EFFB /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 52ED7D5A2DB1D89400F9EFFB /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 52ED7D612DB1D89400F9EFFB;
+			remoteInfo = drivenote;
+		};
+		52ED7D832DB1D89900F9EFFB /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 52ED7D5A2DB1D89400F9EFFB /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 52ED7D612DB1D89400F9EFFB;
+			remoteInfo = drivenote;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXFileReference section */
+		52ED7D622DB1D89400F9EFFB /* drivenote.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = drivenote.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		52ED7D652DB1D89400F9EFFB /* drivenoteApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = drivenoteApp.swift; sourceTree = "<group>"; };
+		52ED7D672DB1D89400F9EFFB /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
+		52ED7D692DB1D89800F9EFFB /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		52ED7D6C2DB1D89800F9EFFB /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
+		52ED7D6E2DB1D89800F9EFFB /* Persistence.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Persistence.swift; sourceTree = "<group>"; };
+		52ED7D712DB1D89800F9EFFB /* drivenote.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = drivenote.xcdatamodel; sourceTree = "<group>"; };
+		52ED7D732DB1D89800F9EFFB /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		52ED7D782DB1D89900F9EFFB /* drivenoteTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = drivenoteTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		52ED7D7C2DB1D89900F9EFFB /* drivenoteTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = drivenoteTests.swift; sourceTree = "<group>"; };
+		52ED7D822DB1D89900F9EFFB /* drivenoteUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = drivenoteUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		52ED7D862DB1D89900F9EFFB /* drivenoteUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = drivenoteUITests.swift; sourceTree = "<group>"; };
+		52ED7D882DB1D89900F9EFFB /* drivenoteUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = drivenoteUITestsLaunchTests.swift; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		52ED7D5F2DB1D89400F9EFFB /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		52ED7D752DB1D89900F9EFFB /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		52ED7D7F2DB1D89900F9EFFB /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		52ED7D592DB1D89400F9EFFB = {
+			isa = PBXGroup;
+			children = (
+				52ED7D642DB1D89400F9EFFB /* drivenote */,
+				52ED7D7B2DB1D89900F9EFFB /* drivenoteTests */,
+				52ED7D852DB1D89900F9EFFB /* drivenoteUITests */,
+				52ED7D632DB1D89400F9EFFB /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		52ED7D632DB1D89400F9EFFB /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				52ED7D622DB1D89400F9EFFB /* drivenote.app */,
+				52ED7D782DB1D89900F9EFFB /* drivenoteTests.xctest */,
+				52ED7D822DB1D89900F9EFFB /* drivenoteUITests.xctest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		52ED7D642DB1D89400F9EFFB /* drivenote */ = {
+			isa = PBXGroup;
+			children = (
+				52ED7D652DB1D89400F9EFFB /* drivenoteApp.swift */,
+				52ED7D672DB1D89400F9EFFB /* ContentView.swift */,
+				52ED7D692DB1D89800F9EFFB /* Assets.xcassets */,
+				52ED7D6E2DB1D89800F9EFFB /* Persistence.swift */,
+				52ED7D732DB1D89800F9EFFB /* Info.plist */,
+				52ED7D702DB1D89800F9EFFB /* drivenote.xcdatamodeld */,
+				52ED7D6B2DB1D89800F9EFFB /* Preview Content */,
+			);
+			path = drivenote;
+			sourceTree = "<group>";
+		};
+		52ED7D6B2DB1D89800F9EFFB /* Preview Content */ = {
+			isa = PBXGroup;
+			children = (
+				52ED7D6C2DB1D89800F9EFFB /* Preview Assets.xcassets */,
+			);
+			path = "Preview Content";
+			sourceTree = "<group>";
+		};
+		52ED7D7B2DB1D89900F9EFFB /* drivenoteTests */ = {
+			isa = PBXGroup;
+			children = (
+				52ED7D7C2DB1D89900F9EFFB /* drivenoteTests.swift */,
+			);
+			path = drivenoteTests;
+			sourceTree = "<group>";
+		};
+		52ED7D852DB1D89900F9EFFB /* drivenoteUITests */ = {
+			isa = PBXGroup;
+			children = (
+				52ED7D862DB1D89900F9EFFB /* drivenoteUITests.swift */,
+				52ED7D882DB1D89900F9EFFB /* drivenoteUITestsLaunchTests.swift */,
+			);
+			path = drivenoteUITests;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		52ED7D612DB1D89400F9EFFB /* drivenote */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 52ED7D8C2DB1D89900F9EFFB /* Build configuration list for PBXNativeTarget "drivenote" */;
+			buildPhases = (
+				52ED7D5E2DB1D89400F9EFFB /* Sources */,
+				52ED7D5F2DB1D89400F9EFFB /* Frameworks */,
+				52ED7D602DB1D89400F9EFFB /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = drivenote;
+			productName = drivenote;
+			productReference = 52ED7D622DB1D89400F9EFFB /* drivenote.app */;
+			productType = "com.apple.product-type.application";
+		};
+		52ED7D772DB1D89900F9EFFB /* drivenoteTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 52ED7D8F2DB1D89900F9EFFB /* Build configuration list for PBXNativeTarget "drivenoteTests" */;
+			buildPhases = (
+				52ED7D742DB1D89900F9EFFB /* Sources */,
+				52ED7D752DB1D89900F9EFFB /* Frameworks */,
+				52ED7D762DB1D89900F9EFFB /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				52ED7D7A2DB1D89900F9EFFB /* PBXTargetDependency */,
+			);
+			name = drivenoteTests;
+			productName = drivenoteTests;
+			productReference = 52ED7D782DB1D89900F9EFFB /* drivenoteTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
+		52ED7D812DB1D89900F9EFFB /* drivenoteUITests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 52ED7D922DB1D89900F9EFFB /* Build configuration list for PBXNativeTarget "drivenoteUITests" */;
+			buildPhases = (
+				52ED7D7E2DB1D89900F9EFFB /* Sources */,
+				52ED7D7F2DB1D89900F9EFFB /* Frameworks */,
+				52ED7D802DB1D89900F9EFFB /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				52ED7D842DB1D89900F9EFFB /* PBXTargetDependency */,
+			);
+			name = drivenoteUITests;
+			productName = drivenoteUITests;
+			productReference = 52ED7D822DB1D89900F9EFFB /* drivenoteUITests.xctest */;
+			productType = "com.apple.product-type.bundle.ui-testing";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		52ED7D5A2DB1D89400F9EFFB /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				BuildIndependentTargetsInParallel = 1;
+				LastSwiftUpdateCheck = 1430;
+				LastUpgradeCheck = 1430;
+				TargetAttributes = {
+					52ED7D612DB1D89400F9EFFB = {
+						CreatedOnToolsVersion = 14.3.1;
+					};
+					52ED7D772DB1D89900F9EFFB = {
+						CreatedOnToolsVersion = 14.3.1;
+						TestTargetID = 52ED7D612DB1D89400F9EFFB;
+					};
+					52ED7D812DB1D89900F9EFFB = {
+						CreatedOnToolsVersion = 14.3.1;
+						TestTargetID = 52ED7D612DB1D89400F9EFFB;
+					};
+				};
+			};
+			buildConfigurationList = 52ED7D5D2DB1D89400F9EFFB /* Build configuration list for PBXProject "drivenote" */;
+			compatibilityVersion = "Xcode 14.0";
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = 52ED7D592DB1D89400F9EFFB;
+			productRefGroup = 52ED7D632DB1D89400F9EFFB /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				52ED7D612DB1D89400F9EFFB /* drivenote */,
+				52ED7D772DB1D89900F9EFFB /* drivenoteTests */,
+				52ED7D812DB1D89900F9EFFB /* drivenoteUITests */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		52ED7D602DB1D89400F9EFFB /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				52ED7D6D2DB1D89800F9EFFB /* Preview Assets.xcassets in Resources */,
+				52ED7D6A2DB1D89800F9EFFB /* Assets.xcassets in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		52ED7D762DB1D89900F9EFFB /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		52ED7D802DB1D89900F9EFFB /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		52ED7D5E2DB1D89400F9EFFB /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				52ED7D6F2DB1D89800F9EFFB /* Persistence.swift in Sources */,
+				52ED7D682DB1D89400F9EFFB /* ContentView.swift in Sources */,
+				52ED7D722DB1D89800F9EFFB /* drivenote.xcdatamodeld in Sources */,
+				52ED7D662DB1D89400F9EFFB /* drivenoteApp.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		52ED7D742DB1D89900F9EFFB /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				52ED7D7D2DB1D89900F9EFFB /* drivenoteTests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		52ED7D7E2DB1D89900F9EFFB /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				52ED7D872DB1D89900F9EFFB /* drivenoteUITests.swift in Sources */,
+				52ED7D892DB1D89900F9EFFB /* drivenoteUITestsLaunchTests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		52ED7D7A2DB1D89900F9EFFB /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 52ED7D612DB1D89400F9EFFB /* drivenote */;
+			targetProxy = 52ED7D792DB1D89900F9EFFB /* PBXContainerItemProxy */;
+		};
+		52ED7D842DB1D89900F9EFFB /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 52ED7D612DB1D89400F9EFFB /* drivenote */;
+			targetProxy = 52ED7D832DB1D89900F9EFFB /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin XCBuildConfiguration section */
+		52ED7D8A2DB1D89900F9EFFB /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 16.4;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+			};
+			name = Debug;
+		};
+		52ED7D8B2DB1D89900F9EFFB /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 16.4;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				MTL_FAST_MATH = YES;
+				SDKROOT = iphoneos;
+				SWIFT_COMPILATION_MODE = wholemodule;
+				SWIFT_OPTIMIZATION_LEVEL = "-O";
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		52ED7D8D2DB1D89900F9EFFB /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_ASSET_PATHS = "\"drivenote/Preview Content\"";
+				DEVELOPMENT_TEAM = DTR8DL89SD;
+				ENABLE_PREVIEWS = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
+				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
+				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = Shacoworkshop.drivenote;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		52ED7D8E2DB1D89900F9EFFB /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_ASSET_PATHS = "\"drivenote/Preview Content\"";
+				DEVELOPMENT_TEAM = DTR8DL89SD;
+				ENABLE_PREVIEWS = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
+				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
+				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = Shacoworkshop.drivenote;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
+		52ED7D902DB1D89900F9EFFB /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = DTR8DL89SD;
+				GENERATE_INFOPLIST_FILE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 16.4;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = Shacoworkshop.drivenoteTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/drivenote.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/drivenote";
+			};
+			name = Debug;
+		};
+		52ED7D912DB1D89900F9EFFB /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = DTR8DL89SD;
+				GENERATE_INFOPLIST_FILE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 16.4;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = Shacoworkshop.drivenoteTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/drivenote.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/drivenote";
+			};
+			name = Release;
+		};
+		52ED7D932DB1D89900F9EFFB /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = DTR8DL89SD;
+				GENERATE_INFOPLIST_FILE = YES;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = Shacoworkshop.drivenoteUITests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_TARGET_NAME = drivenote;
+			};
+			name = Debug;
+		};
+		52ED7D942DB1D89900F9EFFB /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = DTR8DL89SD;
+				GENERATE_INFOPLIST_FILE = YES;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = Shacoworkshop.drivenoteUITests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_TARGET_NAME = drivenote;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		52ED7D5D2DB1D89400F9EFFB /* Build configuration list for PBXProject "drivenote" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				52ED7D8A2DB1D89900F9EFFB /* Debug */,
+				52ED7D8B2DB1D89900F9EFFB /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		52ED7D8C2DB1D89900F9EFFB /* Build configuration list for PBXNativeTarget "drivenote" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				52ED7D8D2DB1D89900F9EFFB /* Debug */,
+				52ED7D8E2DB1D89900F9EFFB /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		52ED7D8F2DB1D89900F9EFFB /* Build configuration list for PBXNativeTarget "drivenoteTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				52ED7D902DB1D89900F9EFFB /* Debug */,
+				52ED7D912DB1D89900F9EFFB /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		52ED7D922DB1D89900F9EFFB /* Build configuration list for PBXNativeTarget "drivenoteUITests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				52ED7D932DB1D89900F9EFFB /* Debug */,
+				52ED7D942DB1D89900F9EFFB /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+
+/* Begin XCVersionGroup section */
+		52ED7D702DB1D89800F9EFFB /* drivenote.xcdatamodeld */ = {
+			isa = XCVersionGroup;
+			children = (
+				52ED7D712DB1D89800F9EFFB /* drivenote.xcdatamodel */,
+			);
+			currentVersion = 52ED7D712DB1D89800F9EFFB /* drivenote.xcdatamodel */;
+			path = drivenote.xcdatamodeld;
+			sourceTree = "<group>";
+			versionGroupType = wrapper.xcdatamodel;
+		};
+/* End XCVersionGroup section */
+	};
+	rootObject = 52ED7D5A2DB1D89400F9EFFB /* Project object */;
+}

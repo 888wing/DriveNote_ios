@@ -21,10 +21,11 @@ struct DashboardView: View {
                     
                     if viewModel.isLoading {
                         // Loading State
-                        ProgressView()
+                        ProgressView("加載中...")
                             .progressViewStyle(CircularProgressViewStyle())
                             .scaleEffect(1.5)
                             .padding(.top, 100)
+                            .frame(minHeight: 300)
                     } else if let error = viewModel.error {
                         // Error State
                         VStack(spacing: Spacing.medium) {
@@ -39,6 +40,7 @@ struct DashboardView: View {
                                 .font(.caption)
                                 .foregroundColor(.secondary)
                                 .multilineTextAlignment(.center)
+                                .padding(.horizontal)
                             
                             Button(action: {
                                 viewModel.loadDashboardData()
@@ -54,8 +56,38 @@ struct DashboardView: View {
                         }
                         .padding()
                         .frame(minHeight: 300)
+                    } else if viewModel.dashboardData == nil {
+                        // Empty State
+                        VStack(spacing: Spacing.large) {
+                            Image(systemName: "square.stack.3d.up.slash")
+                                .font(.system(size: 50))
+                                .foregroundColor(.gray)
+                            
+                            Text("暫無數據")
+                                .font(.headline)
+                            
+                            Text("添加您的第一筆支出、收入或里程記錄來查看儀表板")
+                                .font(.subheadline)
+                                .multilineTextAlignment(.center)
+                                .foregroundColor(.secondary)
+                                .padding(.horizontal)
+                            
+                            Button(action: {
+                                viewModel.loadDashboardData()
+                            }) {
+                                Text("重新加載")
+                                    .padding(.horizontal, Spacing.medium)
+                                    .padding(.vertical, Spacing.small)
+                                    .background(Color.primaryBlue)
+                                    .foregroundColor(.white)
+                                    .cornerRadius(8)
+                            }
+                            .padding(.top)
+                        }
+                        .padding()
+                        .frame(minHeight: 300)
                     } else {
-                        // Content
+                        // Content with data
                         VStack(spacing: Spacing.large) {
                             // Income/Expense Summary Card
                             SummaryCardView(
@@ -141,10 +173,19 @@ struct DashboardView: View {
             .refreshable {
                 viewModel.loadDashboardData()
             }
+            .onAppear {
+                // 如果沒有數據且不在加載中狀態，則嘗試加載數據
+                if viewModel.dashboardData == nil && !viewModel.isLoading {
+                    print("DashboardView: 頁面出現，自動加載數據")
+                    viewModel.loadDashboardData()
+                }
+            }
         }
     }
 }
 
-#Preview {
-    DashboardView()
+struct DashboardView_Previews: PreviewProvider {
+    static var previews: some View {
+        DashboardView()
+    }
 }

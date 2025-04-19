@@ -40,20 +40,37 @@ class DashboardViewModel: ObservableObject {
     }
     
     func loadDashboardData() {
+        print("DashboardViewModel: 開始加載數據，期間: \(selectedPeriod.displayName)")
         isLoading = true
         error = nil
+        
+        // 設置超時計時器
+        let timeoutSeconds = 10.0
+        let timeoutTimer = Timer.scheduledTimer(withTimeInterval: timeoutSeconds, repeats: false) { [weak self] _ in
+            if self?.isLoading == true {
+                print("DashboardViewModel: 加載超時")
+                self?.isLoading = false
+                self?.error = NSError(domain: "com.drivenote", code: -1, userInfo: [NSLocalizedDescriptionKey: "加載超時，請重試"])
+            }
+        }
         
         getDashboardDataUseCase.execute(period: selectedPeriod)
             .receive(on: DispatchQueue.main)
             .sink(
                 receiveCompletion: { [weak self] completion in
+                    timeoutTimer.invalidate() // 取消超時計時器
                     self?.isLoading = false
                     
                     if case .failure(let error) = completion {
+                        print("DashboardViewModel: 加載失敗 - \(error.localizedDescription)")
                         self?.error = error
+                    } else {
+                        print("DashboardViewModel: 加載完成")
                     }
                 },
                 receiveValue: { [weak self] data in
+                    timeoutTimer.invalidate() // 取消超時計時器
+                    print("DashboardViewModel: 收到數據 - 總收入: \(data.summary.totalIncome), 總支出: \(data.summary.totalExpense)")
                     self?.updateDashboardData(data)
                 }
             )

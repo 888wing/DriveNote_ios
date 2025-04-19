@@ -62,10 +62,10 @@ struct CurrencyInputField: View {
                 
                 TextField("0.00", text: $textValue)
                     .keyboardType(.decimalPad)
-                    .onChange(of: textValue) {
+                    .onChange(of: textValue) { newValue in
                         // 過濾非數字和小數點字符
-                        let filtered = textValue.filter { "0123456789.".contains($0) }
-                        if filtered != textValue {
+                        let filtered = newValue.filter { "0123456789.".contains($0) }
+                        if filtered != newValue {
                             textValue = filtered
                         }
                         
@@ -155,44 +155,46 @@ struct CategoryButton: View {
     }
 }
 
-#Preview {
-    ScrollView {
-        VStack(alignment: .leading, spacing: 20) {
-            ModernTextField(
-                label: "描述",
-                icon: "text.alignleft",
-                placeholder: "輸入描述",
-                text: .constant("測試描述")
-            )
-            
-            CurrencyInputField(
-                label: "金額",
-                icon: "sterling.sign",
-                value: .constant(123.45)
-            )
-            
-            DatePickerField(
-                label: "日期",
-                icon: "calendar",
-                date: .constant(Date())
-            )
-            
-            HStack {
-                CategoryButton(
-                    title: "燃料",
-                    icon: "fuelpump.fill",
-                    isSelected: true,
-                    action: {}
+struct FormComponents_Previews: PreviewProvider {
+    static var previews: some View {
+        ScrollView {
+            VStack(alignment: .leading, spacing: 20) {
+                ModernTextField(
+                    label: "描述",
+                    icon: "text.alignleft",
+                    placeholder: "輸入描述",
+                    text: .constant("測試描述")
                 )
                 
-                CategoryButton(
-                    title: "維修",
-                    icon: "wrench.fill",
-                    isSelected: false,
-                    action: {}
+                CurrencyInputField(
+                    label: "金額",
+                    icon: "sterling.sign",
+                    value: .constant(123.45)
                 )
+                
+                DatePickerField(
+                    label: "日期",
+                    icon: "calendar",
+                    date: .constant(Date())
+                )
+                
+                HStack {
+                    CategoryButton(
+                        title: "燃料",
+                        icon: "fuelpump.fill",
+                        isSelected: true,
+                        action: {}
+                    )
+                    
+                    CategoryButton(
+                        title: "維修",
+                        icon: "wrench.fill",
+                        isSelected: false,
+                        action: {}
+                    )
+                }
             }
+            .padding()
         }
-        .padding()
     }
 }

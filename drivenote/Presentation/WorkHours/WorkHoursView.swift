@@ -180,6 +180,8 @@ struct WorkHoursView: View {
     }
 }
 
-#Preview {
-    WorkHoursView()
+struct WorkHoursView_Previews: PreviewProvider {
+    static var previews: some View {
+        WorkHoursView()
+    }
 }

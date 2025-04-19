@@ -73,9 +73,20 @@ struct Spacing {
     static let huge: CGFloat = 32
 }
 
-// MARK: - 陰影
+// MARK: - 陰影參數 (用於 .shadow() 修飾符)
 struct Shadows {
-    static let small = Shadow(color: .black.opacity(0.1), radius: 4, x: 0, y: 2)
-    static let medium = Shadow(color: .black.opacity(0.15), radius: 10, x: 0, y: 5)
-    static let large = Shadow(color: .black.opacity(0.2), radius: 16, x: 0, y: 8)
+    static let small: (color: Color, radius: CGFloat, x: CGFloat, y: CGFloat) = 
+        (Color.black.opacity(0.1), 4, 0, 2)
+    static let medium: (color: Color, radius: CGFloat, x: CGFloat, y: CGFloat) = 
+        (Color.black.opacity(0.15), 10, 0, 5)
+    static let large: (color: Color, radius: CGFloat, x: CGFloat, y: CGFloat) = 
+        (Color.black.opacity(0.2), 16, 0, 8)
 }
+
+// 使用方式：
+// .shadow(
+//     color: Shadows.medium.color,
+//     radius: Shadows.medium.radius,
+//     x: Shadows.medium.x,
+//     y: Shadows.medium.y
+// )

@@ -13,11 +13,13 @@ class ExpenseListViewModel: ObservableObject {
     // Dependencies
     private let getExpensesUseCase: GetExpensesUseCase
     private let deleteExpenseUseCase: DeleteExpenseUseCase
+    private let expenseRepository: ExpenseRepository
     private var cancellables = Set<AnyCancellable>()
     
-    init(getExpensesUseCase: GetExpensesUseCase, deleteExpenseUseCase: DeleteExpenseUseCase) {
+    init(getExpensesUseCase: GetExpensesUseCase, deleteExpenseUseCase: DeleteExpenseUseCase, expenseRepository: ExpenseRepository) {
         self.getExpensesUseCase = getExpensesUseCase
         self.deleteExpenseUseCase = deleteExpenseUseCase
+        self.expenseRepository = expenseRepository
         
         // Monitor search text changes
         $searchText
@@ -32,20 +34,37 @@ class ExpenseListViewModel: ObservableObject {
     }
     
     func loadExpenses() {
+        print("ExpenseListViewModel: 開始加載支出數據")
         isLoading = true
         error = nil
+        
+        // 設置超時計時器
+        let timeoutSeconds = 10.0
+        let timeoutTimer = Timer.scheduledTimer(withTimeInterval: timeoutSeconds, repeats: false) { [weak self] _ in
+            if self?.isLoading == true {
+                print("ExpenseListViewModel: 加載超時")
+                self?.isLoading = false
+                self?.error = NSError(domain: "com.drivenote", code: -1, userInfo: [NSLocalizedDescriptionKey: "加載超時，請重試"])
+            }
+        }
         
         getExpensesUseCase.execute()
             .receive(on: DispatchQueue.main)
             .sink(
                 receiveCompletion: { [weak self] completion in
+                    timeoutTimer.invalidate() // 取消超時計時器
                     self?.isLoading = false
                     
                     if case .failure(let error) = completion {
+                        print("ExpenseListViewModel: 加載失敗 - \(error.localizedDescription)")
                         self?.error = error
+                    } else {
+                        print("ExpenseListViewModel: 加載完成")
                     }
                 },
                 receiveValue: { [weak self] expenses in
+                    timeoutTimer.invalidate() // 取消超時計時器
+                    print("ExpenseListViewModel: 收到 \(expenses.count) 條支出記錄")
                     self?.updateExpenses(expenses)
                 }
             )
@@ -53,9 +72,48 @@ class ExpenseListViewModel: ObservableObject {
     }
     
     private func updateExpenses(_ expenses: [Expense]) {
-        let expenseViewModels = expenses.map { ExpenseItemViewModel(expense: $0) }
-        self.expenses = expenseViewModels
-        applyFilters()
+        if expenses.isEmpty {
+            insertFakeExpense()
+        } else {
+            let expenseViewModels = expenses.map { ExpenseItemViewModel(expense: $0) }
+            self.expenses = expenseViewModels
+            applyFilters()
+        }
+    }
+    
+    /// 僅供開發測試：自動插入一筆假資料到 Core Data
+    private func insertFakeExpense() {
+        print("ExpenseListViewModel: 插入測試數據")
+        let fakeExpense = Expense(
+            id: UUID(),
+            date: Date(),
+            amount: 123.45,
+            category: .fuel,
+            description: "測試假資料",
+            isTaxDeductible: true,
+            taxDeductiblePercentage: 100,
+            creationMethod: .manual,
+            isUploaded: false,
+            lastModified: Date()
+        )
+        
+        print("ExpenseListViewModel: 準備保存測試數據")
+        expenseRepository.saveExpense(expense: fakeExpense)
+            .receive(on: DispatchQueue.main)
+            .sink(
+                receiveCompletion: { [weak self] completion in
+                    if case .failure(let error) = completion {
+                        print("ExpenseListViewModel: 保存測試數據失敗 - \(error.localizedDescription)")
+                    } else {
+                        print("ExpenseListViewModel: 保存測試數據成功，重新加載")
+                        self?.loadExpenses()
+                    }
+                }, 
+                receiveValue: { savedExpense in
+                    print("ExpenseListViewModel: 測試數據已保存 ID=\(savedExpense.id)")
+                }
+            )
+            .store(in: &cancellables)
     }
     
     func deleteExpense(_ id: UUID) {

@@ -92,19 +92,21 @@ struct SecondaryButton: View {
     }
 }
 
-#Preview {
-    VStack(spacing: 20) {
-        GradientButton(title: "保存", icon: "checkmark") {
-            print("按鈕點擊")
+struct GradientButton_Previews: PreviewProvider {
+    static var previews: some View {
+        VStack(spacing: 20) {
+            GradientButton(title: "保存", icon: "checkmark") {
+                print("按鈕點擊")
+            }
+            
+            GradientButton(title: "禁用按鈕", icon: "xmark", action: {}, isDisabled: true)
+            
+            SecondaryButton(title: "取消", icon: "arrow.left") {
+                print("取消點擊")
+            }
+            
+            SecondaryButton(title: "禁用次要按鈕", icon: "xmark", action: {}, isDisabled: true)
         }
-        
-        GradientButton(title: "禁用按鈕", icon: "xmark", action: {}, isDisabled: true)
-        
-        SecondaryButton(title: "取消", icon: "arrow.left") {
-            print("取消點擊")
-        }
-        
-        SecondaryButton(title: "禁用次要按鈕", icon: "xmark", action: {}, isDisabled: true)
+        .padding()
     }
-    .padding()
 }

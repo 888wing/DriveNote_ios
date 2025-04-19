@@ -8,14 +8,60 @@
 
 /* Begin PBXBuildFile section */
 		52ED7D662DB1D89400F9EFFB /* drivenoteApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52ED7D652DB1D89400F9EFFB /* drivenoteApp.swift */; };
-		52ED7D682DB1D89400F9EFFB /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52ED7D672DB1D89400F9EFFB /* ContentView.swift */; };
-		52ED7D6A2DB1D89800F9EFFB /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 52ED7D692DB1D89800F9EFFB /* Assets.xcassets */; };
-		52ED7D6D2DB1D89800F9EFFB /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 52ED7D6C2DB1D89800F9EFFB /* Preview Assets.xcassets */; };
 		52ED7D6F2DB1D89800F9EFFB /* Persistence.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52ED7D6E2DB1D89800F9EFFB /* Persistence.swift */; };
 		52ED7D722DB1D89800F9EFFB /* drivenote.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 52ED7D702DB1D89800F9EFFB /* drivenote.xcdatamodeld */; };
 		52ED7D7D2DB1D89900F9EFFB /* drivenoteTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52ED7D7C2DB1D89900F9EFFB /* drivenoteTests.swift */; };
 		52ED7D872DB1D89900F9EFFB /* drivenoteUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52ED7D862DB1D89900F9EFFB /* drivenoteUITests.swift */; };
 		52ED7D892DB1D89900F9EFFB /* drivenoteUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52ED7D882DB1D89900F9EFFB /* drivenoteUITestsLaunchTests.swift */; };
+		52ED82422DB231B800F9EFFB /* DriveNoteApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52ED82012DB231B600F9EFFB /* DriveNoteApp.swift */; };
+		52ED82432DB231B800F9EFFB /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52ED82022DB231B600F9EFFB /* AppDelegate.swift */; };
+		52ED82442DB231B800F9EFFB /* DIContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52ED82032DB231B600F9EFFB /* DIContainer.swift */; };
+		52ED82452DB231B800F9EFFB /* CoreDataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52ED82092DB231B600F9EFFB /* CoreDataManager.swift */; };
+		52ED82462DB231B800F9EFFB /* CoreDataMappers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52ED820A2DB231B600F9EFFB /* CoreDataMappers.swift */; };
+		52ED82472DB231B800F9EFFB /* DriveNote.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 52ED820C2DB231B600F9EFFB /* DriveNote.xcdatamodeld */; };
+		52ED82482DB231B800F9EFFB /* MileageRepositoryImpl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52ED820F2DB231B600F9EFFB /* MileageRepositoryImpl.swift */; };
+		52ED82492DB231B800F9EFFB /* WorkHoursRepositoryImpl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52ED82102DB231B600F9EFFB /* WorkHoursRepositoryImpl.swift */; };
+		52ED824A2DB231B800F9EFFB /* ReceiptRepositoryImpl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52ED82112DB231B600F9EFFB /* ReceiptRepositoryImpl.swift */; };
+		52ED824B2DB231B800F9EFFB /* ExpenseRepositoryImpl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52ED82122DB231B600F9EFFB /* ExpenseRepositoryImpl.swift */; };
+		52ED824C2DB231B800F9EFFB /* IncomeRepositoryImpl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52ED82132DB231B600F9EFFB /* IncomeRepositoryImpl.swift */; };
+		52ED824D2DB231B800F9EFFB /* WorkHoursRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52ED82172DB231B700F9EFFB /* WorkHoursRepository.swift */; };
+		52ED824E2DB231B800F9EFFB /* ExpenseRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52ED82182DB231B700F9EFFB /* ExpenseRepository.swift */; };
+		52ED824F2DB231B800F9EFFB /* MileageRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52ED82192DB231B700F9EFFB /* MileageRepository.swift */; };
+		52ED82502DB231B800F9EFFB /* IncomeRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52ED821A2DB231B700F9EFFB /* IncomeRepository.swift */; };
+		52ED82512DB231B800F9EFFB /* ReceiptRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52ED821B2DB231B700F9EFFB /* ReceiptRepository.swift */; };
+		52ED82522DB231B800F9EFFB /* ExpenseUseCases.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52ED821D2DB231B700F9EFFB /* ExpenseUseCases.swift */; };
+		52ED82532DB231B800F9EFFB /* ReceiptUseCases.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52ED821E2DB231B700F9EFFB /* ReceiptUseCases.swift */; };
+		52ED82542DB231B800F9EFFB /* DashboardUseCases.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52ED821F2DB231B700F9EFFB /* DashboardUseCases.swift */; };
+		52ED82552DB231B800F9EFFB /* MileageUseCases.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52ED82202DB231B700F9EFFB /* MileageUseCases.swift */; };
+		52ED82562DB231B800F9EFFB /* WorkHoursUseCases.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52ED82212DB231B700F9EFFB /* WorkHoursUseCases.swift */; };
+		52ED82572DB231B800F9EFFB /* Mileage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52ED82232DB231B700F9EFFB /* Mileage.swift */; };
+		52ED82582DB231B800F9EFFB /* ExpenseCategory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52ED82242DB231B700F9EFFB /* ExpenseCategory.swift */; };
+		52ED82592DB231B800F9EFFB /* Period.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52ED82252DB231B700F9EFFB /* Period.swift */; };
+		52ED825A2DB231B800F9EFFB /* Income.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52ED82262DB231B700F9EFFB /* Income.swift */; };
+		52ED825B2DB231B800F9EFFB /* Receipt.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52ED82272DB231B700F9EFFB /* Receipt.swift */; };
+		52ED825C2DB231B800F9EFFB /* Expense.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52ED82282DB231B700F9EFFB /* Expense.swift */; };
+		52ED825D2DB231B800F9EFFB /* WorkHours.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52ED82292DB231B700F9EFFB /* WorkHours.swift */; };
+		52ED825E2DB231B800F9EFFB /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52ED822C2DB231B700F9EFFB /* SettingsView.swift */; };
+		52ED825F2DB231B800F9EFFB /* ExpenseFormView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52ED822E2DB231B700F9EFFB /* ExpenseFormView.swift */; };
+		52ED82602DB231B800F9EFFB /* ExpenseFormViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52ED822F2DB231B700F9EFFB /* ExpenseFormViewModel.swift */; };
+		52ED82612DB231B800F9EFFB /* ExpensesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52ED82302DB231B700F9EFFB /* ExpensesView.swift */; };
+		52ED82622DB231B800F9EFFB /* ExpenseListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52ED82312DB231B700F9EFFB /* ExpenseListViewModel.swift */; };
+		52ED82632DB231B800F9EFFB /* WorkHoursView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52ED82332DB231B700F9EFFB /* WorkHoursView.swift */; };
+		52ED82642DB231B800F9EFFB /* DashboardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52ED82352DB231B700F9EFFB /* DashboardView.swift */; };
+		52ED82652DB231B800F9EFFB /* DashboardViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52ED82362DB231B700F9EFFB /* DashboardViewModel.swift */; };
+		52ED82662DB231B800F9EFFB /* ModernCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52ED82392DB231B700F9EFFB /* ModernCard.swift */; };
+		52ED82672DB231B800F9EFFB /* FormComponents.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52ED823A2DB231B700F9EFFB /* FormComponents.swift */; };
+		52ED82682DB231B800F9EFFB /* DashboardComponents.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52ED823B2DB231B700F9EFFB /* DashboardComponents.swift */; };
+		52ED82692DB231B800F9EFFB /* GradientButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52ED823C2DB231B700F9EFFB /* GradientButton.swift */; };
+		52ED826A2DB231B800F9EFFB /* Theme.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52ED823D2DB231B700F9EFFB /* Theme.swift */; };
+		52ED826B2DB231B800F9EFFB /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52ED823E2DB231B700F9EFFB /* ContentView.swift */; };
+		52ED826C2DB231B800F9EFFB /* MileageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52ED82402DB231B700F9EFFB /* MileageView.swift */; };
+		52ED82712DB2403200F9EFFB /* ReceiptGalleryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52ED826E2DB2403100F9EFFB /* ReceiptGalleryView.swift */; };
+		52ED82722DB2403200F9EFFB /* ReceiptCaptureView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52ED826F2DB2403200F9EFFB /* ReceiptCaptureView.swift */; };
+		52ED82732DB2403200F9EFFB /* ReceiptGalleryViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52ED82702DB2403200F9EFFB /* ReceiptGalleryViewModel.swift */; };
+		52ED82772DB2405600F9EFFB /* MileageFormView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52ED82742DB2405500F9EFFB /* MileageFormView.swift */; };
+		52ED82782DB2405600F9EFFB /* MileageListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52ED82752DB2405500F9EFFB /* MileageListView.swift */; };
+		52ED82792DB2405600F9EFFB /* MileageViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52ED82762DB2405600F9EFFB /* MileageViewModel.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -38,7 +84,6 @@
 /* Begin PBXFileReference section */
 		52ED7D622DB1D89400F9EFFB /* drivenote.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = drivenote.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		52ED7D652DB1D89400F9EFFB /* drivenoteApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = drivenoteApp.swift; sourceTree = "<group>"; };
-		52ED7D672DB1D89400F9EFFB /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		52ED7D692DB1D89800F9EFFB /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		52ED7D6C2DB1D89800F9EFFB /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		52ED7D6E2DB1D89800F9EFFB /* Persistence.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Persistence.swift; sourceTree = "<group>"; };
@@ -49,6 +94,55 @@
 		52ED7D822DB1D89900F9EFFB /* drivenoteUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = drivenoteUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		52ED7D862DB1D89900F9EFFB /* drivenoteUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = drivenoteUITests.swift; sourceTree = "<group>"; };
 		52ED7D882DB1D89900F9EFFB /* drivenoteUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = drivenoteUITestsLaunchTests.swift; sourceTree = "<group>"; };
+		52ED82012DB231B600F9EFFB /* DriveNoteApp.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DriveNoteApp.swift; sourceTree = "<group>"; };
+		52ED82022DB231B600F9EFFB /* AppDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
+		52ED82032DB231B600F9EFFB /* DIContainer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DIContainer.swift; sourceTree = "<group>"; };
+		52ED82092DB231B600F9EFFB /* CoreDataManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CoreDataManager.swift; sourceTree = "<group>"; };
+		52ED820A2DB231B600F9EFFB /* CoreDataMappers.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CoreDataMappers.swift; sourceTree = "<group>"; };
+		52ED820D2DB231B600F9EFFB /* DriveNote.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = DriveNote.xcdatamodel; sourceTree = "<group>"; };
+		52ED820F2DB231B600F9EFFB /* MileageRepositoryImpl.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MileageRepositoryImpl.swift; sourceTree = "<group>"; };
+		52ED82102DB231B600F9EFFB /* WorkHoursRepositoryImpl.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WorkHoursRepositoryImpl.swift; sourceTree = "<group>"; };
+		52ED82112DB231B600F9EFFB /* ReceiptRepositoryImpl.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ReceiptRepositoryImpl.swift; sourceTree = "<group>"; };
+		52ED82122DB231B600F9EFFB /* ExpenseRepositoryImpl.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ExpenseRepositoryImpl.swift; sourceTree = "<group>"; };
+		52ED82132DB231B600F9EFFB /* IncomeRepositoryImpl.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IncomeRepositoryImpl.swift; sourceTree = "<group>"; };
+		52ED82172DB231B700F9EFFB /* WorkHoursRepository.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WorkHoursRepository.swift; sourceTree = "<group>"; };
+		52ED82182DB231B700F9EFFB /* ExpenseRepository.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ExpenseRepository.swift; sourceTree = "<group>"; };
+		52ED82192DB231B700F9EFFB /* MileageRepository.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MileageRepository.swift; sourceTree = "<group>"; };
+		52ED821A2DB231B700F9EFFB /* IncomeRepository.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IncomeRepository.swift; sourceTree = "<group>"; };
+		52ED821B2DB231B700F9EFFB /* ReceiptRepository.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ReceiptRepository.swift; sourceTree = "<group>"; };
+		52ED821D2DB231B700F9EFFB /* ExpenseUseCases.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ExpenseUseCases.swift; sourceTree = "<group>"; };
+		52ED821E2DB231B700F9EFFB /* ReceiptUseCases.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ReceiptUseCases.swift; sourceTree = "<group>"; };
+		52ED821F2DB231B700F9EFFB /* DashboardUseCases.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DashboardUseCases.swift; sourceTree = "<group>"; };
+		52ED82202DB231B700F9EFFB /* MileageUseCases.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MileageUseCases.swift; sourceTree = "<group>"; };
+		52ED82212DB231B700F9EFFB /* WorkHoursUseCases.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WorkHoursUseCases.swift; sourceTree = "<group>"; };
+		52ED82232DB231B700F9EFFB /* Mileage.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Mileage.swift; sourceTree = "<group>"; };
+		52ED82242DB231B700F9EFFB /* ExpenseCategory.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ExpenseCategory.swift; sourceTree = "<group>"; };
+		52ED82252DB231B700F9EFFB /* Period.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Period.swift; sourceTree = "<group>"; };
+		52ED82262DB231B700F9EFFB /* Income.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Income.swift; sourceTree = "<group>"; };
+		52ED82272DB231B700F9EFFB /* Receipt.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Receipt.swift; sourceTree = "<group>"; };
+		52ED82282DB231B700F9EFFB /* Expense.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Expense.swift; sourceTree = "<group>"; };
+		52ED82292DB231B700F9EFFB /* WorkHours.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WorkHours.swift; sourceTree = "<group>"; };
+		52ED822C2DB231B700F9EFFB /* SettingsView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
+		52ED822E2DB231B700F9EFFB /* ExpenseFormView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ExpenseFormView.swift; sourceTree = "<group>"; };
+		52ED822F2DB231B700F9EFFB /* ExpenseFormViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ExpenseFormViewModel.swift; sourceTree = "<group>"; };
+		52ED82302DB231B700F9EFFB /* ExpensesView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ExpensesView.swift; sourceTree = "<group>"; };
+		52ED82312DB231B700F9EFFB /* ExpenseListViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ExpenseListViewModel.swift; sourceTree = "<group>"; };
+		52ED82332DB231B700F9EFFB /* WorkHoursView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WorkHoursView.swift; sourceTree = "<group>"; };
+		52ED82352DB231B700F9EFFB /* DashboardView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DashboardView.swift; sourceTree = "<group>"; };
+		52ED82362DB231B700F9EFFB /* DashboardViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DashboardViewModel.swift; sourceTree = "<group>"; };
+		52ED82392DB231B700F9EFFB /* ModernCard.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ModernCard.swift; sourceTree = "<group>"; };
+		52ED823A2DB231B700F9EFFB /* FormComponents.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FormComponents.swift; sourceTree = "<group>"; };
+		52ED823B2DB231B700F9EFFB /* DashboardComponents.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DashboardComponents.swift; sourceTree = "<group>"; };
+		52ED823C2DB231B700F9EFFB /* GradientButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GradientButton.swift; sourceTree = "<group>"; };
+		52ED823D2DB231B700F9EFFB /* Theme.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Theme.swift; sourceTree = "<group>"; };
+		52ED823E2DB231B700F9EFFB /* ContentView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
+		52ED82402DB231B700F9EFFB /* MileageView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MileageView.swift; sourceTree = "<group>"; };
+		52ED826E2DB2403100F9EFFB /* ReceiptGalleryView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ReceiptGalleryView.swift; sourceTree = "<group>"; };
+		52ED826F2DB2403200F9EFFB /* ReceiptCaptureView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ReceiptCaptureView.swift; sourceTree = "<group>"; };
+		52ED82702DB2403200F9EFFB /* ReceiptGalleryViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ReceiptGalleryViewModel.swift; sourceTree = "<group>"; };
+		52ED82742DB2405500F9EFFB /* MileageFormView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MileageFormView.swift; sourceTree = "<group>"; };
+		52ED82752DB2405500F9EFFB /* MileageListView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MileageListView.swift; sourceTree = "<group>"; };
+		52ED82762DB2405600F9EFFB /* MileageViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MileageViewModel.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -100,7 +194,11 @@
 			isa = PBXGroup;
 			children = (
 				52ED7D652DB1D89400F9EFFB /* drivenoteApp.swift */,
-				52ED7D672DB1D89400F9EFFB /* ContentView.swift */,
+				52ED82002DB231B600F9EFFB /* App */,
+				52ED82042DB231B600F9EFFB /* Data */,
+				52ED82152DB231B700F9EFFB /* Domain */,
+				52ED822A2DB231B700F9EFFB /* Presentation */,
+				52ED81FF2DB231B600F9EFFB /* Resources */,
 				52ED7D692DB1D89800F9EFFB /* Assets.xcassets */,
 				52ED7D6E2DB1D89800F9EFFB /* Persistence.swift */,
 				52ED7D732DB1D89800F9EFFB /* Info.plist */,
@@ -133,6 +231,226 @@
 				52ED7D882DB1D89900F9EFFB /* drivenoteUITestsLaunchTests.swift */,
 			);
 			path = drivenoteUITests;
+			sourceTree = "<group>";
+		};
+		52ED81FF2DB231B600F9EFFB /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Resources;
+			sourceTree = "<group>";
+		};
+		52ED82002DB231B600F9EFFB /* App */ = {
+			isa = PBXGroup;
+			children = (
+				52ED82012DB231B600F9EFFB /* DriveNoteApp.swift */,
+				52ED82022DB231B600F9EFFB /* AppDelegate.swift */,
+				52ED82032DB231B600F9EFFB /* DIContainer.swift */,
+			);
+			path = App;
+			sourceTree = "<group>";
+		};
+		52ED82042DB231B600F9EFFB /* Data */ = {
+			isa = PBXGroup;
+			children = (
+				52ED82052DB231B600F9EFFB /* Network */,
+				52ED82072DB231B600F9EFFB /* CoreData */,
+				52ED820E2DB231B600F9EFFB /* Repositories */,
+				52ED82142DB231B600F9EFFB /* Firebase */,
+			);
+			path = Data;
+			sourceTree = "<group>";
+		};
+		52ED82052DB231B600F9EFFB /* Network */ = {
+			isa = PBXGroup;
+			children = (
+				52ED82062DB231B600F9EFFB /* OCR */,
+			);
+			path = Network;
+			sourceTree = "<group>";
+		};
+		52ED82062DB231B600F9EFFB /* OCR */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = OCR;
+			sourceTree = "<group>";
+		};
+		52ED82072DB231B600F9EFFB /* CoreData */ = {
+			isa = PBXGroup;
+			children = (
+				52ED82082DB231B600F9EFFB /* Manager */,
+				52ED820B2DB231B600F9EFFB /* Model */,
+			);
+			path = CoreData;
+			sourceTree = "<group>";
+		};
+		52ED82082DB231B600F9EFFB /* Manager */ = {
+			isa = PBXGroup;
+			children = (
+				52ED82092DB231B600F9EFFB /* CoreDataManager.swift */,
+				52ED820A2DB231B600F9EFFB /* CoreDataMappers.swift */,
+			);
+			path = Manager;
+			sourceTree = "<group>";
+		};
+		52ED820B2DB231B600F9EFFB /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				52ED820C2DB231B600F9EFFB /* DriveNote.xcdatamodeld */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		52ED820E2DB231B600F9EFFB /* Repositories */ = {
+			isa = PBXGroup;
+			children = (
+				52ED820F2DB231B600F9EFFB /* MileageRepositoryImpl.swift */,
+				52ED82102DB231B600F9EFFB /* WorkHoursRepositoryImpl.swift */,
+				52ED82112DB231B600F9EFFB /* ReceiptRepositoryImpl.swift */,
+				52ED82122DB231B600F9EFFB /* ExpenseRepositoryImpl.swift */,
+				52ED82132DB231B600F9EFFB /* IncomeRepositoryImpl.swift */,
+			);
+			path = Repositories;
+			sourceTree = "<group>";
+		};
+		52ED82142DB231B600F9EFFB /* Firebase */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Firebase;
+			sourceTree = "<group>";
+		};
+		52ED82152DB231B700F9EFFB /* Domain */ = {
+			isa = PBXGroup;
+			children = (
+				52ED82162DB231B700F9EFFB /* Repositories */,
+				52ED821C2DB231B700F9EFFB /* UseCases */,
+				52ED82222DB231B700F9EFFB /* Entities */,
+			);
+			path = Domain;
+			sourceTree = "<group>";
+		};
+		52ED82162DB231B700F9EFFB /* Repositories */ = {
+			isa = PBXGroup;
+			children = (
+				52ED82172DB231B700F9EFFB /* WorkHoursRepository.swift */,
+				52ED82182DB231B700F9EFFB /* ExpenseRepository.swift */,
+				52ED82192DB231B700F9EFFB /* MileageRepository.swift */,
+				52ED821A2DB231B700F9EFFB /* IncomeRepository.swift */,
+				52ED821B2DB231B700F9EFFB /* ReceiptRepository.swift */,
+			);
+			path = Repositories;
+			sourceTree = "<group>";
+		};
+		52ED821C2DB231B700F9EFFB /* UseCases */ = {
+			isa = PBXGroup;
+			children = (
+				52ED821D2DB231B700F9EFFB /* ExpenseUseCases.swift */,
+				52ED821E2DB231B700F9EFFB /* ReceiptUseCases.swift */,
+				52ED821F2DB231B700F9EFFB /* DashboardUseCases.swift */,
+				52ED82202DB231B700F9EFFB /* MileageUseCases.swift */,
+				52ED82212DB231B700F9EFFB /* WorkHoursUseCases.swift */,
+			);
+			path = UseCases;
+			sourceTree = "<group>";
+		};
+		52ED82222DB231B700F9EFFB /* Entities */ = {
+			isa = PBXGroup;
+			children = (
+				52ED82232DB231B700F9EFFB /* Mileage.swift */,
+				52ED82242DB231B700F9EFFB /* ExpenseCategory.swift */,
+				52ED82252DB231B700F9EFFB /* Period.swift */,
+				52ED82262DB231B700F9EFFB /* Income.swift */,
+				52ED82272DB231B700F9EFFB /* Receipt.swift */,
+				52ED82282DB231B700F9EFFB /* Expense.swift */,
+				52ED82292DB231B700F9EFFB /* WorkHours.swift */,
+			);
+			path = Entities;
+			sourceTree = "<group>";
+		};
+		52ED822A2DB231B700F9EFFB /* Presentation */ = {
+			isa = PBXGroup;
+			children = (
+				52ED822B2DB231B700F9EFFB /* Settings */,
+				52ED822D2DB231B700F9EFFB /* Expenses */,
+				52ED82322DB231B700F9EFFB /* WorkHours */,
+				52ED82342DB231B700F9EFFB /* Dashboard */,
+				52ED82372DB231B700F9EFFB /* Common */,
+				52ED823F2DB231B700F9EFFB /* Mileage */,
+			);
+			path = Presentation;
+			sourceTree = "<group>";
+		};
+		52ED822B2DB231B700F9EFFB /* Settings */ = {
+			isa = PBXGroup;
+			children = (
+				52ED822C2DB231B700F9EFFB /* SettingsView.swift */,
+			);
+			path = Settings;
+			sourceTree = "<group>";
+		};
+		52ED822D2DB231B700F9EFFB /* Expenses */ = {
+			isa = PBXGroup;
+			children = (
+				52ED822E2DB231B700F9EFFB /* ExpenseFormView.swift */,
+				52ED826F2DB2403200F9EFFB /* ReceiptCaptureView.swift */,
+				52ED826E2DB2403100F9EFFB /* ReceiptGalleryView.swift */,
+				52ED82702DB2403200F9EFFB /* ReceiptGalleryViewModel.swift */,
+				52ED822F2DB231B700F9EFFB /* ExpenseFormViewModel.swift */,
+				52ED82302DB231B700F9EFFB /* ExpensesView.swift */,
+				52ED82312DB231B700F9EFFB /* ExpenseListViewModel.swift */,
+			);
+			path = Expenses;
+			sourceTree = "<group>";
+		};
+		52ED82322DB231B700F9EFFB /* WorkHours */ = {
+			isa = PBXGroup;
+			children = (
+				52ED82332DB231B700F9EFFB /* WorkHoursView.swift */,
+			);
+			path = WorkHours;
+			sourceTree = "<group>";
+		};
+		52ED82342DB231B700F9EFFB /* Dashboard */ = {
+			isa = PBXGroup;
+			children = (
+				52ED82352DB231B700F9EFFB /* DashboardView.swift */,
+				52ED82362DB231B700F9EFFB /* DashboardViewModel.swift */,
+			);
+			path = Dashboard;
+			sourceTree = "<group>";
+		};
+		52ED82372DB231B700F9EFFB /* Common */ = {
+			isa = PBXGroup;
+			children = (
+				52ED82382DB231B700F9EFFB /* Components */,
+				52ED823D2DB231B700F9EFFB /* Theme.swift */,
+				52ED823E2DB231B700F9EFFB /* ContentView.swift */,
+			);
+			path = Common;
+			sourceTree = "<group>";
+		};
+		52ED82382DB231B700F9EFFB /* Components */ = {
+			isa = PBXGroup;
+			children = (
+				52ED82392DB231B700F9EFFB /* ModernCard.swift */,
+				52ED823A2DB231B700F9EFFB /* FormComponents.swift */,
+				52ED823B2DB231B700F9EFFB /* DashboardComponents.swift */,
+				52ED823C2DB231B700F9EFFB /* GradientButton.swift */,
+			);
+			path = Components;
+			sourceTree = "<group>";
+		};
+		52ED823F2DB231B700F9EFFB /* Mileage */ = {
+			isa = PBXGroup;
+			children = (
+				52ED82402DB231B700F9EFFB /* MileageView.swift */,
+				52ED82742DB2405500F9EFFB /* MileageFormView.swift */,
+				52ED82752DB2405500F9EFFB /* MileageListView.swift */,
+				52ED82762DB2405600F9EFFB /* MileageViewModel.swift */,
+			);
+			path = Mileage;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -239,8 +557,6 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				52ED7D6D2DB1D89800F9EFFB /* Preview Assets.xcassets in Resources */,
-				52ED7D6A2DB1D89800F9EFFB /* Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -265,10 +581,58 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				52ED825B2DB231B800F9EFFB /* Receipt.swift in Sources */,
+				52ED824C2DB231B800F9EFFB /* IncomeRepositoryImpl.swift in Sources */,
+				52ED82712DB2403200F9EFFB /* ReceiptGalleryView.swift in Sources */,
+				52ED82542DB231B800F9EFFB /* DashboardUseCases.swift in Sources */,
+				52ED82582DB231B800F9EFFB /* ExpenseCategory.swift in Sources */,
+				52ED82782DB2405600F9EFFB /* MileageListView.swift in Sources */,
+				52ED826C2DB231B800F9EFFB /* MileageView.swift in Sources */,
+				52ED82482DB231B800F9EFFB /* MileageRepositoryImpl.swift in Sources */,
+				52ED82512DB231B800F9EFFB /* ReceiptRepository.swift in Sources */,
+				52ED82472DB231B800F9EFFB /* DriveNote.xcdatamodeld in Sources */,
+				52ED82622DB231B800F9EFFB /* ExpenseListViewModel.swift in Sources */,
+				52ED82612DB231B800F9EFFB /* ExpensesView.swift in Sources */,
+				52ED82632DB231B800F9EFFB /* WorkHoursView.swift in Sources */,
+				52ED82592DB231B800F9EFFB /* Period.swift in Sources */,
+				52ED82562DB231B800F9EFFB /* WorkHoursUseCases.swift in Sources */,
+				52ED82722DB2403200F9EFFB /* ReceiptCaptureView.swift in Sources */,
+				52ED82492DB231B800F9EFFB /* WorkHoursRepositoryImpl.swift in Sources */,
+				52ED82442DB231B800F9EFFB /* DIContainer.swift in Sources */,
+				52ED82432DB231B800F9EFFB /* AppDelegate.swift in Sources */,
+				52ED82602DB231B800F9EFFB /* ExpenseFormViewModel.swift in Sources */,
+				52ED82552DB231B800F9EFFB /* MileageUseCases.swift in Sources */,
 				52ED7D6F2DB1D89800F9EFFB /* Persistence.swift in Sources */,
-				52ED7D682DB1D89400F9EFFB /* ContentView.swift in Sources */,
+				52ED82532DB231B800F9EFFB /* ReceiptUseCases.swift in Sources */,
+				52ED824E2DB231B800F9EFFB /* ExpenseRepository.swift in Sources */,
+				52ED82572DB231B800F9EFFB /* Mileage.swift in Sources */,
+				52ED824D2DB231B800F9EFFB /* WorkHoursRepository.swift in Sources */,
+				52ED82662DB231B800F9EFFB /* ModernCard.swift in Sources */,
+				52ED82732DB2403200F9EFFB /* ReceiptGalleryViewModel.swift in Sources */,
+				52ED82462DB231B800F9EFFB /* CoreDataMappers.swift in Sources */,
+				52ED82422DB231B800F9EFFB /* DriveNoteApp.swift in Sources */,
+				52ED825F2DB231B800F9EFFB /* ExpenseFormView.swift in Sources */,
+				52ED826A2DB231B800F9EFFB /* Theme.swift in Sources */,
+				52ED825E2DB231B800F9EFFB /* SettingsView.swift in Sources */,
+				52ED82522DB231B800F9EFFB /* ExpenseUseCases.swift in Sources */,
+				52ED82672DB231B800F9EFFB /* FormComponents.swift in Sources */,
 				52ED7D722DB1D89800F9EFFB /* drivenote.xcdatamodeld in Sources */,
+				52ED825A2DB231B800F9EFFB /* Income.swift in Sources */,
+				52ED82452DB231B800F9EFFB /* CoreDataManager.swift in Sources */,
+				52ED82652DB231B800F9EFFB /* DashboardViewModel.swift in Sources */,
 				52ED7D662DB1D89400F9EFFB /* drivenoteApp.swift in Sources */,
+				52ED825C2DB231B800F9EFFB /* Expense.swift in Sources */,
+				52ED824B2DB231B800F9EFFB /* ExpenseRepositoryImpl.swift in Sources */,
+				52ED82692DB231B800F9EFFB /* GradientButton.swift in Sources */,
+				52ED82502DB231B800F9EFFB /* IncomeRepository.swift in Sources */,
+				52ED826B2DB231B800F9EFFB /* ContentView.swift in Sources */,
+				52ED82792DB2405600F9EFFB /* MileageViewModel.swift in Sources */,
+				52ED824F2DB231B800F9EFFB /* MileageRepository.swift in Sources */,
+				52ED82682DB231B800F9EFFB /* DashboardComponents.swift in Sources */,
+				52ED825D2DB231B800F9EFFB /* WorkHours.swift in Sources */,
+				52ED82772DB2405600F9EFFB /* MileageFormView.swift in Sources */,
+				52ED82642DB231B800F9EFFB /* DashboardView.swift in Sources */,
+				52ED824A2DB231B800F9EFFB /* ReceiptRepositoryImpl.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -602,6 +966,16 @@
 			);
 			currentVersion = 52ED7D712DB1D89800F9EFFB /* drivenote.xcdatamodel */;
 			path = drivenote.xcdatamodeld;
+			sourceTree = "<group>";
+			versionGroupType = wrapper.xcdatamodel;
+		};
+		52ED820C2DB231B600F9EFFB /* DriveNote.xcdatamodeld */ = {
+			isa = XCVersionGroup;
+			children = (
+				52ED820D2DB231B600F9EFFB /* DriveNote.xcdatamodel */,
+			);
+			currentVersion = 52ED820D2DB231B600F9EFFB /* DriveNote.xcdatamodel */;
+			path = DriveNote.xcdatamodeld;
 			sourceTree = "<group>";
 			versionGroupType = wrapper.xcdatamodel;
 		};

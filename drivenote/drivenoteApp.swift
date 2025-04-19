@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-@main
+// 已被 DriveNoteApp.swift 取代，保留此檔案僅作參考
 struct drivenoteApp: App {
     let persistenceController = PersistenceController.shared
 

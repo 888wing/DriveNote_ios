@@ -26,10 +26,11 @@ class MileageViewModel: ObservableObject {
     }
     
     func loadMileages() {
-        _ = repository.getAllMileage()
+        repository.getAllMileage()
             .sink(receiveCompletion: { _ in }, receiveValue: { [weak self] mileages in
                 self?.mileages = mileages
             })
+            .store(in: &cancellables)
     }
     
     func save() {
@@ -47,19 +48,21 @@ class MileageViewModel: ObservableObject {
             isTaxDeductible: isTaxDeductible,
             taxDeductiblePercentage: taxDeductiblePercentage
         )
-        _ = repository.saveMileage(mileage: mileage)
+        repository.saveMileage(mileage: mileage)
             .sink(receiveCompletion: { _ in }, receiveValue: { [weak self] _ in
                 self?.loadMileages()
             })
+            .store(in: &cancellables)
     }
     
     func deleteMileage(at offsets: IndexSet) {
         for index in offsets {
             let mileage = mileages[index]
-            _ = repository.deleteMileage(id: mileage.id)
+            repository.deleteMileage(id: mileage.id)
                 .sink(receiveCompletion: { _ in }, receiveValue: { [weak self] in
                     self?.mileages.remove(at: index)
                 })
+                .store(in: &cancellables)
         }
     }
     

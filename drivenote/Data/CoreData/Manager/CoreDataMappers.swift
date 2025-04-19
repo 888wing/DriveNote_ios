@@ -5,6 +5,9 @@ import CoreData
 extension CDExpense {
     
     func toDomain() -> Expense {
+        // 從 Core Data 轉換到 Domain 模型時添加日誌以便調試
+        print("CDExpense - 轉換為域模型，ID: \(id?.uuidString ?? "nil")")
+        
         let receiptIds = (receipts?.allObjects as? [CDReceipt])?.compactMap { $0.id } ?? []
         
         return Expense(
@@ -59,8 +62,8 @@ extension CDMileage {
         return Mileage(
             id: id ?? UUID(),
             date: date ?? Date(),
-            startMileage: startMileage as? Double,
-            endMileage: endMileage as? Double,
+            startMileage: startMileage, // 直接使用，因為它在Core Data中就是Double
+            endMileage: endMileage,    // 直接使用，因為它在Core Data中就是Double
             distance: distance,
             purpose: purpose,
             isUploaded: isUploaded,
@@ -74,8 +77,8 @@ extension CDMileage {
     func update(with mileage: Mileage, context: NSManagedObjectContext) {
         id = mileage.id
         date = mileage.date
-        startMileage = mileage.startMileage as NSNumber?
-        endMileage = mileage.endMileage as NSNumber?
+        startMileage = mileage.startMileage ?? 0 // 直接賦值，但需處理nil (Core Data中非可選需給預設值)
+        endMileage = mileage.endMileage ?? 0    // 直接賦值，但需處理nil
         distance = mileage.distance
         purpose = mileage.purpose
         isUploaded = mileage.isUploaded

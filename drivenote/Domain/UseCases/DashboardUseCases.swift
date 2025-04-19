@@ -30,91 +30,77 @@ struct GetDashboardDataUseCase {
         let currentMileagePublisher = mileageRepository.getMileageByDateRange(start: dateRange.start, end: dateRange.end)
         let currentWorkHoursPublisher = workHoursRepository.getWorkHoursByDateRange(start: dateRange.start, end: dateRange.end)
         
-        // 上一期間數據查詢 (用於計算變化百分比)
-        let previousExpensesPublisher = expenseRepository.getExpensesByDateRange(start: previousDateRange.start, end: previousDateRange.end)
-        let previousIncomePublisher = incomeRepository.getIncomeByDateRange(start: previousDateRange.start, end: previousDateRange.end)
+        // 上一期間數據查詢 (用於計算變化百分比) - 未來將使用
+        _ = expenseRepository.getExpensesByDateRange(start: previousDateRange.start, end: previousDateRange.end)
+        _ = incomeRepository.getIncomeByDateRange(start: previousDateRange.start, end: previousDateRange.end)
         
-        // 組合所有查詢結果
-        return Publishers.CombineLatest6(
-            currentExpensesPublisher,
-            currentIncomePublisher,
-            currentMileagePublisher,
-            currentWorkHoursPublisher,
-            previousExpensesPublisher,
-            previousIncomePublisher
-        )
-        .map { currentExpenses, currentIncome, currentMileage, currentWorkHours, previousExpenses, previousIncome in
-            // 計算當前期間總數據
-            let totalExpense = currentExpenses.reduce(0) { $0 + $1.amount }
-            let totalIncome = currentIncome.reduce(0) { $0 + $1.totalAmount() }
-            let totalMileage = currentMileage.reduce(0) { $0 + $1.distance }
-            let totalWorkHours = currentWorkHours.reduce(0) { $0 + $1.totalHours }
-            
-            // 計算上一期間總數據
-            let previousTotalExpense = previousExpenses.reduce(0) { $0 + $1.amount }
-            let previousTotalIncome = previousIncome.reduce(0) { $0 + $1.totalAmount() }
-            
-            // 計算變化百分比
-            let incomeChangePercent = calculateChangePercent(current: totalIncome, previous: previousTotalIncome)
-            let expenseChangePercent = calculateChangePercent(current: totalExpense, previous: previousTotalExpense)
-            let netIncomeChangePercent = calculateChangePercent(
-                current: totalIncome - totalExpense,
-                previous: previousTotalIncome - previousTotalExpense
-            )
-            
-            // 計算時薪
-            let hourlyRate = totalWorkHours > 0 ? totalIncome / totalWorkHours : 0
-            
-            // 計算每英里成本 (僅考慮燃料支出)
-            let fuelExpenses = currentExpenses.filter { $0.category == .fuel }
-            let totalFuelCost = fuelExpenses.reduce(0) { $0 + $1.amount }
-            let costPerMile = totalMileage > 0 ? totalFuelCost / totalMileage : 0
-            
-            // 構建圖表數據
-            let (chartLabels, incomeData, expenseData) = buildChartData(
-                period: period,
-                expenses: currentExpenses,
-                income: currentIncome
-            )
-            
-            // 可抵稅支出總額
-            let totalTaxDeductible = currentExpenses.reduce(0) { $0 + $1.taxDeductibleAmount() }
-            
-            return DashboardData(
-                period: period,
-                summary: DashboardSummary(
-                    totalIncome: totalIncome,
-                    totalExpense: totalExpense,
-                    netIncome: totalIncome - totalExpense,
-                    incomeChangePercent: incomeChangePercent,
-                    expenseChangePercent: expenseChangePercent,
-                    netIncomeChangePercent: netIncomeChangePercent
-                ),
-                metrics: DashboardMetrics(
-                    hourlyRate: hourlyRate,
-                    costPerMile: costPerMile,
-                    totalMileage: totalMileage,
-                    totalWorkHours: totalWorkHours,
-                    totalTaxDeductible: totalTaxDeductible
-                ),
-                chartData: DashboardChartData(
-                    labels: chartLabels,
-                    incomeData: incomeData,
-                    expenseData: expenseData
+        // MVP階段簡化實現，先獲取當前數據，返回基本儀表板
+        return currentExpensesPublisher
+            .zip(currentIncomePublisher)
+            .zip(currentMileagePublisher)
+            .zip(currentWorkHoursPublisher)
+            .map { combinedA, workHours in
+                let ((expenses, income), mileage) = combinedA
+                
+                // 計算當前期間總數據
+                let totalExpense = expenses.reduce(0) { $0 + $1.amount }
+                let totalIncome = income.reduce(0) { $0 + $1.totalAmount() }
+                let totalMileage = mileage.reduce(0) { $0 + $1.distance }
+                let totalWorkHours = workHours.reduce(0) { $0 + $1.totalHours }
+                
+                // 計算時薪
+                let hourlyRate = totalWorkHours > 0 ? totalIncome / totalWorkHours : 0
+                
+                // 計算每英里成本 (僅考慮燃料支出)
+                let fuelExpenses = expenses.filter { $0.category == .fuel }
+                let totalFuelCost = fuelExpenses.reduce(0) { $0 + $1.amount }
+                let costPerMile = totalMileage > 0 ? totalFuelCost / totalMileage : 0
+                
+                // 構建圖表數據
+                let (chartLabels, incomeData, expenseData) = self.buildChartData(
+                    period: period,
+                    expenses: expenses,
+                    income: income
                 )
-            )
-        }
-        .eraseToAnyPublisher()
+                
+                // 可抵稅支出總額
+                let totalTaxDeductible = expenses.reduce(0) { $0 + $1.taxDeductibleAmount() }
+                
+                return DashboardData(
+                    period: period,
+                    summary: DashboardSummary(
+                        totalIncome: totalIncome,
+                        totalExpense: totalExpense,
+                        netIncome: totalIncome - totalExpense,
+                        incomeChangePercent: nil, // 暫時不計算變化百分比
+                        expenseChangePercent: nil,
+                        netIncomeChangePercent: nil
+                    ),
+                    metrics: DashboardMetrics(
+                        hourlyRate: hourlyRate,
+                        costPerMile: costPerMile,
+                        totalMileage: totalMileage,
+                        totalWorkHours: totalWorkHours,
+                        totalTaxDeductible: totalTaxDeductible
+                    ),
+                    chartData: DashboardChartData(
+                        labels: chartLabels,
+                        incomeData: incomeData,
+                        expenseData: expenseData
+                    )
+                )
+            }
+            .eraseToAnyPublisher()
     }
     
     // 計算變化百分比
-    private func calculateChangePercent(current: Double, previous: Double) -> Double? {
+    func calculateChangePercent(current: Double, previous: Double) -> Double? {
         guard previous != 0 else { return nil }
         return ((current - previous) / previous) * 100.0
     }
     
     // 獲取上一期間的日期範圍
-    private func getPreviousPeriodRange(period: Period) -> (start: Date, end: Date) {
+    func getPreviousPeriodRange(period: Period) -> (start: Date, end: Date) {
         let currentRange = period.dateRange()
         let calendar = Calendar.current
         
@@ -147,7 +133,7 @@ struct GetDashboardDataUseCase {
     }
     
     // 構建圖表數據
-    private func buildChartData(
+    func buildChartData(
         period: Period,
         expenses: [Expense],
         income: [Income]

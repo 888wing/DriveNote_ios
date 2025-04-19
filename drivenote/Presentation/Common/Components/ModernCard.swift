@@ -44,18 +44,20 @@ struct CardWithoutPadding<Content: View>: View {
     }
 }
 
-#Preview {
-    VStack {
-        ModernCard(title: "測試卡片", icon: "star.fill", tint: .primaryBlue) {
-            Text("這是卡片內容")
-                .padding(.bottom, 8)
+struct ModernCard_Previews: PreviewProvider {
+    static var previews: some View {
+        VStack {
+            ModernCard(title: "測試卡片", icon: "star.fill", tint: .primaryBlue) {
+                Text("這是卡片內容")
+                    .padding(.bottom, 8)
+            }
+            .padding()
+            
+            ModernCard(title: "", icon: nil) {
+                Text("無標題卡片")
+                    .padding()
+            }
+            .padding()
         }
-        .padding()
-        
-        ModernCard(title: "", icon: nil) {
-            Text("無標題卡片")
-                .padding()
-        }
-        .padding()
     }
 }

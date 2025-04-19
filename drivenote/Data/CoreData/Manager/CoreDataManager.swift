@@ -12,11 +12,46 @@ class CoreDataManager {
     // MARK: - Core Data Stack
     
     private lazy var persistentContainer: NSPersistentContainer = {
-        let container = NSPersistentContainer(name: "DriveNote")
+        // 打印當前工作目錄和可用的 xcdatamodeld 文件
+        print("CoreDataManager: 正在初始化 Core Data 堆棧")
+        print("CoreDataManager: 模型名稱為 'drivenote'")
         
+        let container = NSPersistentContainer(name: "drivenote")
+        
+        // 嘗試載入持久化存儲，但提供更安全的錯誤處理
         container.loadPersistentStores { (storeDescription, error) in
             if let error = error as NSError? {
-                fatalError("Failed to load Core Data stack: \(error), \(error.userInfo)")
+                print("CoreDataManager: Core Data 載入錯誤 - \(error.localizedDescription)")
+                print("CoreDataManager: 詳細錯誤信息 - \(error.userInfo)")
+                
+                // 嘗試處理某些常見錯誤
+                if error.domain == NSCocoaErrorDomain && 
+                   (error.code == NSMigrationError || 
+                    error.code == NSMigrationMissingSourceModelError || 
+                    error.code == NSMigrationMissingMappingModelError) {
+                    print("CoreDataManager: 遇到遷移錯誤，可能需要刪除舊的存儲文件")
+                    
+                    // 輸出有用的調試信息而不是直接崩潰
+                    print("CoreDataManager: 這可能是 Core Data 模型不匹配導致的")
+                    print("CoreDataManager: 請確保 xcdatamodeld 文件名正確")
+                    print("CoreDataManager: 正在繼續但可能會有功能限制")
+                } else {
+                    print("CoreDataManager: 未知錯誤，應用可能無法正常工作")
+                }
+                
+                // 創建一個內存存儲作為臨時解決方案，而不是崩潰
+                let description = NSPersistentStoreDescription()
+                description.type = NSInMemoryStoreType
+                container.persistentStoreDescriptions = [description]
+                container.loadPersistentStores { (desc, err) in
+                    if let err = err {
+                        print("CoreDataManager: 無法創建內存存儲: \(err)")
+                    } else {
+                        print("CoreDataManager: 已創建內存存儲作為備份")
+                    }
+                }
+            } else {
+                print("CoreDataManager: Core Data 載入成功")
             }
         }
         

@@ -476,6 +476,8 @@ struct GradientButtonStyle: ButtonStyle {
     }
 }
 
-#Preview {
-    ExpenseFormView()
+struct ExpenseFormView_Previews: PreviewProvider {
+    static var previews: some View {
+        ExpenseFormView()
+    }
 }

@@ -134,5 +134,6 @@ struct ExpenseAnalytics {
     // 獲取按金額排序的支出類別
     var topCategories: [(category: ExpenseCategory, amount: Double)] {
         return expensesByCategory.sorted { $0.value > $1.value }
+            .map { (category: $0.key, amount: $0.value) }
     }
 }

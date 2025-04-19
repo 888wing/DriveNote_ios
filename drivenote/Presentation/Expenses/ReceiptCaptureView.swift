@@ -80,9 +80,9 @@ struct ReceiptCaptureView: View {
     }
     
     private func saveReceipt() {
-        guard let inputImage = inputImage else { return }
+        guard let inputImageValue = inputImage else { return }
         isSaving = true
-        onSave(inputImage)
+        onSave(inputImageValue)
         isSaving = false
         alertMessage = "Receipt saved successfully."
         showAlert = true

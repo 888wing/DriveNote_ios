@@ -1,20 +1,23 @@
 import Foundation
 import SwiftUI
+import Combine
 
 class ReceiptGalleryViewModel: ObservableObject {
     @Published var receipts: [Receipt] = []
     private let repository: ReceiptRepository
-    
+    private var cancellables = Set<AnyCancellable>()
+
     init(repository: ReceiptRepository) {
         self.repository = repository
         loadReceipts()
     }
     
     func loadReceipts() {
-        _ = repository.getAllReceipts()
+        repository.getAllReceipts()
             .sink(receiveCompletion: { _ in }, receiveValue: { [weak self] receipts in
                 self?.receipts = receipts
             })
+            .store(in: &cancellables)
     }
     
     func loadThumbnail(for receipt: Receipt) -> UIImage? {
@@ -33,10 +36,11 @@ class ReceiptGalleryViewModel: ObservableObject {
     func deleteReceipts(at offsets: IndexSet) {
         for index in offsets {
             let receipt = receipts[index]
-            _ = repository.deleteReceipt(id: receipt.uuid)
+            repository.deleteReceipt(id: receipt.id)
                 .sink(receiveCompletion: { _ in }, receiveValue: { [weak self] in
                     self?.receipts.remove(at: index)
                 })
+                .store(in: &cancellables)
         }
     }
 }

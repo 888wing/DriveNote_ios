@@ -64,10 +64,18 @@ struct ExpensesView: View {
                 
                 if viewModel.isLoading && viewModel.expenses.isEmpty {
                     // Loading State
-                    ProgressView()
-                        .progressViewStyle(CircularProgressViewStyle())
-                        .scaleEffect(1.5)
-                        .padding(.top, 100)
+                    VStack {
+                        ProgressView("加載支出數據中...")
+                            .progressViewStyle(CircularProgressViewStyle())
+                            .scaleEffect(1.5)
+                            .padding(.top, 100)
+                        
+                        Text("首次加載可能需要較長時間")
+                            .font(.caption)
+                            .foregroundColor(.secondary)
+                            .padding(.top, 20)
+                    }
+                    .frame(maxWidth: .infinity, minHeight: 300)
                 } else if let error = viewModel.error {
                     // Error State
                     VStack(spacing: Spacing.medium) {
@@ -329,6 +337,8 @@ struct SearchBar: View {
     }
 }
 
-#Preview {
-    ExpensesView()
+struct ExpensesView_Previews: PreviewProvider {
+    static var previews: some View {
+        ExpensesView()
+    }
 }

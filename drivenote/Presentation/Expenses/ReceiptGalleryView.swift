@@ -4,11 +4,12 @@ struct ReceiptGalleryView: View {
     @ObservedObject var viewModel: ReceiptGalleryViewModel
     @State private var showPreview: Bool = false
     @State private var selectedImage: UIImage?
-    
+
     var body: some View {
         NavigationView {
             List {
-                ForEach(viewModel.receipts) { receipt in
+                ForEach(0..<viewModel.receipts.count, id: \.self) { index in
+                    let receipt = viewModel.receipts[index]
                     Button(action: {
                         selectedImage = viewModel.loadImage(for: receipt)
                         showPreview = true
@@ -28,14 +29,16 @@ struct ReceiptGalleryView: View {
                             VStack(alignment: .leading) {
                                 Text(receipt.uploadTimestamp, style: .date)
                                     .font(.headline)
-                                Text(receipt.ocrStatus.capitalized)
+                                Text(receipt.ocrStatus.displayName)
                                     .font(.subheadline)
                                     .foregroundColor(.secondary)
                             }
                         }
                     }
                 }
-                .onDelete(perform: viewModel.deleteReceipts)
+                .onDelete(perform: { indexSet in
+                    viewModel.deleteReceipts(at: indexSet)
+                })
             }
             .navigationTitle("Receipt Gallery")
             .toolbar {

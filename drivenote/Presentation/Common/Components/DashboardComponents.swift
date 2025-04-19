@@ -213,40 +213,42 @@ struct ChartCardView: View {
     }
 }
 
-#Preview {
-    ScrollView {
-        VStack(spacing: 20) {
-            SummaryCardView(
-                income: 2560.50,
-                expense: 1180.75,
-                percentChange: 12.5
-            )
-            
-            HStack(spacing: 16) {
-                MetricCardView(
-                    title: "平均時薪",
-                    value: "£18.50",
-                    icon: "sterling.circle.fill",
-                    color: .primaryBlue
+struct DashboardComponents_Previews: PreviewProvider {
+    static var previews: some View {
+        ScrollView {
+            VStack(spacing: 20) {
+                SummaryCardView(
+                    income: 2560.50,
+                    expense: 1180.75,
+                    percentChange: 12.5
                 )
                 
-                MetricCardView(
-                    title: "每英里成本",
-                    value: "£0.42",
-                    icon: "fuelpump.fill",
-                    color: .expenseOrange
+                HStack(spacing: 16) {
+                    MetricCardView(
+                        title: "平均時薪",
+                        value: "£18.50",
+                        icon: "sterling.circle.fill",
+                        color: .primaryBlue
+                    )
+                    
+                    MetricCardView(
+                        title: "每英里成本",
+                        value: "£0.42",
+                        icon: "fuelpump.fill",
+                        color: .expenseOrange
+                    )
+                }
+                
+                ChartCardView(
+                    title: "收支趨勢",
+                    period: "本週",
+                    incomeData: [65, 75, 85, 90, 65, 45, 75],
+                    expenseData: [45, 55, 65, 50, 55, 35, 55],
+                    labels: ["一", "二", "三", "四", "五", "六", "日"]
                 )
             }
-            
-            ChartCardView(
-                title: "收支趨勢",
-                period: "本週",
-                incomeData: [65, 75, 85, 90, 65, 45, 75],
-                expenseData: [45, 55, 65, 50, 55, 35, 55],
-                labels: ["一", "二", "三", "四", "五", "六", "日"]
-            )
+            .padding()
         }
-        .padding()
+        .background(Color(.systemBackground))
     }
-    .background(Color(.systemBackground))
 }

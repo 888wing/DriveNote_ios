@@ -145,7 +145,11 @@ class DIContainer {
     }
     
     func makeExpenseListViewModel() -> ExpenseListViewModel {
-        return ExpenseListViewModel(getExpensesUseCase: getExpensesUseCase, deleteExpenseUseCase: deleteExpenseUseCase)
+        return ExpenseListViewModel(
+            getExpensesUseCase: getExpensesUseCase, 
+            deleteExpenseUseCase: deleteExpenseUseCase,
+            expenseRepository: expenseRepository
+        )
     }
     
     func makeExpenseFormViewModel(expense: Expense? = nil) -> ExpenseFormViewModel {
@@ -156,6 +160,9 @@ class DIContainer {
         )
     }
     
+    // 以下 ViewModel 工廠方法將在實現對應功能時解除註釋
+    
+    /*
     func makeMileageListViewModel() -> MileageListViewModel {
         return MileageListViewModel(getMileageUseCase: getMileageUseCase, deleteMileageUseCase: deleteMileageUseCase)
     }
@@ -182,4 +189,5 @@ class DIContainer {
             getTodayWorkHoursUseCase: getTodayWorkHoursUseCase
         )
     }
+    */
 }

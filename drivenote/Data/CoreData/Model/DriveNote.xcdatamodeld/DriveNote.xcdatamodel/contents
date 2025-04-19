@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="22222" systemVersion="23D60" minimumToolsVersion="Automatic" sourceLanguage="Swift" usedWithSwiftData="YES" userDefinedModelVersionIdentifier="">
+    <entity name="CDExpense" representedClassName="CDExpense" syncable="YES" codeGenerationType="class">
+        <attribute name="amount" optional="NO" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES"/>
+        <attribute name="category" optional="NO" attributeType="String"/>
+        <attribute name="creationMethod" optional="NO" attributeType="String" defaultValueString="manual"/>
+        <attribute name="date" optional="NO" attributeType="Date" usesScalarValueType="NO"/>
+        <attribute name="descriptionText" optional="YES" attributeType="String"/>
+        <attribute name="id" optional="NO" attributeType="UUID" usesScalarValueType="NO"/>
+        <attribute name="isTaxDeductible" optional="NO" attributeType="Boolean" usesScalarValueType="YES"/>
+        <attribute name="isUploaded" optional="NO" attributeType="Boolean" usesScalarValueType="YES"/>
+        <attribute name="lastModified" optional="NO" attributeType="Date" usesScalarValueType="NO"/>
+        <attribute name="relatedMileageId" optional="YES" attributeType="UUID" usesScalarValueType="NO"/>
+        <attribute name="taxDeductiblePercentage" optional="NO" attributeType="Integer 16" defaultValueString="100" usesScalarValueType="YES"/>
+        <relationship name="receipts" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="CDReceipt" inverseName="expense" inverseEntity="CDReceipt"/>
+    </entity>
+    <entity name="CDIncome" representedClassName="CDIncome" syncable="YES" codeGenerationType="class">
+        <attribute name="amount" optional="NO" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES"/>
+        <attribute name="date" optional="NO" attributeType="Date" usesScalarValueType="NO"/>
+        <attribute name="id" optional="NO" attributeType="UUID" usesScalarValueType="NO"/>
+        <attribute name="isUploaded" optional="NO" attributeType="Boolean" usesScalarValueType="YES"/>
+        <attribute name="lastModified" optional="NO" attributeType="Date" usesScalarValueType="NO"/>
+        <attribute name="notes" optional="YES" attributeType="String"/>
+        <attribute name="source" optional="NO" attributeType="String"/>
+        <attribute name="tipAmount" optional="NO" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES"/>
+    </entity>
+    <entity name="CDMileage" representedClassName="CDMileage" syncable="YES" codeGenerationType="class">
+        <attribute name="date" optional="NO" attributeType="Date" usesScalarValueType="NO"/>
+        <attribute name="distance" optional="NO" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES"/>
+        <attribute name="endMileage" optional="YES" attributeType="Double" usesScalarValueType="YES"/>
+        <attribute name="id" optional="NO" attributeType="UUID" usesScalarValueType="NO"/>
+        <attribute name="isTaxDeductible" optional="NO" attributeType="Boolean" usesScalarValueType="YES"/>
+        <attribute name="isUploaded" optional="NO" attributeType="Boolean" usesScalarValueType="YES"/>
+        <attribute name="lastModified" optional="NO" attributeType="Date" usesScalarValueType="NO"/>
+        <attribute name="purpose" optional="YES" attributeType="String"/>
+        <attribute name="relatedFuelExpenseId" optional="YES" attributeType="UUID" usesScalarValueType="NO"/>
+        <attribute name="startMileage" optional="YES" attributeType="Double" usesScalarValueType="YES"/>
+        <attribute name="taxDeductiblePercentage" optional="NO" attributeType="Integer 16" defaultValueString="100" usesScalarValueType="YES"/>
+    </entity>
+    <entity name="CDReceipt" representedClassName="CDReceipt" syncable="YES" codeGenerationType="class">
+        <attribute name="filePath" optional="NO" attributeType="String"/>
+        <attribute name="id" optional="NO" attributeType="UUID" usesScalarValueType="NO"/>
+        <attribute name="isUploaded" optional="NO" attributeType="Boolean" usesScalarValueType="YES"/>
+        <attribute name="ocrResultJson" optional="YES" attributeType="String"/>
+        <attribute name="ocrStatus" optional="NO" attributeType="String" defaultValueString="pending"/>
+        <attribute name="uploadTimestamp" optional="NO" attributeType="Date" usesScalarValueType="NO"/>
+        <relationship name="expense" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="CDExpense" inverseName="receipts" inverseEntity="CDExpense"/>
+    </entity>
+    <entity name="CDSettings" representedClassName="CDSettings" syncable="YES" codeGenerationType="class">
+        <attribute name="currencyCode" optional="NO" attributeType="String" defaultValueString="GBP"/>
+        <attribute name="deviceId" optional="NO" attributeType="String"/>
+        <attribute name="distanceUnit" optional="NO" attributeType="String" defaultValueString="miles"/>
+        <attribute name="id" optional="NO" attributeType="UUID" usesScalarValueType="NO"/>
+        <attribute name="lastSyncTime" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
+        <attribute name="syncEnabled" optional="NO" attributeType="Boolean" usesScalarValueType="YES"/>
+        <attribute name="userId" optional="YES" attributeType="String"/>
+    </entity>
+    <entity name="CDWorkHours" representedClassName="CDWorkHours" syncable="YES" codeGenerationType="class">
+        <attribute name="date" optional="NO" attributeType="Date" usesScalarValueType="NO"/>
+        <attribute name="endTime" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
+        <attribute name="id" optional="NO" attributeType="UUID" usesScalarValueType="NO"/>
+        <attribute name="isUploaded" optional="NO" attributeType="Boolean" usesScalarValueType="YES"/>
+        <attribute name="lastModified" optional="NO" attributeType="Date" usesScalarValueType="NO"/>
+        <attribute name="notes" optional="YES" attributeType="String"/>
+        <attribute name="startTime" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
+        <attribute name="totalHours" optional="NO" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES"/>
+    </entity>
+</model>

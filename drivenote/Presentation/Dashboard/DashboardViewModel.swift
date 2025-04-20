@@ -1,14 +1,8 @@
 import Foundation
 import Combine
 
-class DashboardViewModel: ObservableObject {
-    // Published properties for UI
-    @Published var dashboardData: DashboardData?
-    @Published var isLoading: Bool = false
-    @Published var error: Error?
-    @Published var selectedPeriod: Period = .month
-    
-    // Metrics for display
+class DashboardViewModel: StatefulViewModel<DashboardData> {
+    // 儀表板指標
     @Published var totalIncome: Double = 0
     @Published var totalExpense: Double = 0
     @Published var netIncome: Double = 0
@@ -18,40 +12,42 @@ class DashboardViewModel: ObservableObject {
     @Published var totalMileage: Double = 0
     @Published var totalTaxDeductible: Double = 0
     
-    // Chart data
+    // 圖表數據
     @Published var chartLabels: [String] = []
     @Published var incomeData: [Double] = []
     @Published var expenseData: [Double] = []
     
-    // Change percentages
+    // 變化百分比
     @Published var incomeChangePercent: Double?
     @Published var expenseChangePercent: Double?
     @Published var netIncomeChangePercent: Double?
     
-    // Dependencies
+    // 用戶選擇
+    @Published var selectedPeriod: Period = .month
+    
+    // 依賴
     private let getDashboardDataUseCase: GetDashboardDataUseCase
-    private var cancellables = Set<AnyCancellable>()
     
     init(getDashboardDataUseCase: GetDashboardDataUseCase) {
         self.getDashboardDataUseCase = getDashboardDataUseCase
-        
-        // Load data when initialized
-        loadDashboardData()
+        super.init()
     }
     
     func loadDashboardData() {
         print("DashboardViewModel: 開始加載數據，期間: \(selectedPeriod.displayName)")
-        isLoading = true
-        error = nil
+        setLoading()
         
         // 設置超時計時器
         let timeoutSeconds = 10.0
         let timeoutTimer = Timer.scheduledTimer(withTimeInterval: timeoutSeconds, repeats: false) { [weak self] _ in
-            if self?.isLoading == true {
-                print("DashboardViewModel: 加載超時")
-                self?.isLoading = false
-                self?.error = NSError(domain: "com.drivenote", code: -1, userInfo: [NSLocalizedDescriptionKey: "加載超時，請重試"])
-            }
+            guard let self = self, case .loading = self.state else { return }
+            
+            print("DashboardViewModel: 加載超時")
+            self.setError(NSError(
+                domain: "com.drivenote", 
+                code: -1, 
+                userInfo: [NSLocalizedDescriptionKey: "加載超時，請重試"]
+            ))
         }
         
         getDashboardDataUseCase.execute(period: selectedPeriod)
@@ -59,29 +55,35 @@ class DashboardViewModel: ObservableObject {
             .sink(
                 receiveCompletion: { [weak self] completion in
                     timeoutTimer.invalidate() // 取消超時計時器
-                    self?.isLoading = false
                     
                     if case .failure(let error) = completion {
                         print("DashboardViewModel: 加載失敗 - \(error.localizedDescription)")
-                        self?.error = error
+                        self?.setError(error)
                     } else {
                         print("DashboardViewModel: 加載完成")
                     }
                 },
                 receiveValue: { [weak self] data in
                     timeoutTimer.invalidate() // 取消超時計時器
-                    print("DashboardViewModel: 收到數據 - 總收入: \(data.summary.totalIncome), 總支出: \(data.summary.totalExpense)")
-                    self?.updateDashboardData(data)
+                    
+                    if let self = self {
+                        print("DashboardViewModel: 收到數據 - 總收入: \(data.summary.totalIncome), 總支出: \(data.summary.totalExpense)")
+                        
+                        // 檢查是否有數據
+                        if data.isEmpty {
+                            self.setEmpty()
+                        } else {
+                            self.updateDashboardData(data)
+                            self.setLoaded(data)
+                        }
+                    }
                 }
             )
             .store(in: &cancellables)
     }
     
     private func updateDashboardData(_ data: DashboardData) {
-        // Update main data
-        dashboardData = data
-        
-        // Update metrics
+        // 更新指標
         totalIncome = data.summary.totalIncome
         totalExpense = data.summary.totalExpense
         netIncome = data.summary.netIncome
@@ -91,12 +93,12 @@ class DashboardViewModel: ObservableObject {
         totalMileage = data.metrics.totalMileage
         totalTaxDeductible = data.metrics.totalTaxDeductible
         
-        // Update chart data
+        // 更新圖表數據
         chartLabels = data.chartData.labels
         incomeData = data.chartData.incomeData
         expenseData = data.chartData.expenseData
         
-        // Update change percentages
+        // 更新變化百分比
         incomeChangePercent = data.summary.incomeChangePercent
         expenseChangePercent = data.summary.expenseChangePercent
         netIncomeChangePercent = data.summary.netIncomeChangePercent
@@ -107,7 +109,7 @@ class DashboardViewModel: ObservableObject {
         loadDashboardData()
     }
     
-    // Formatted string getters for display
+    // 格式化字符串
     var formattedTotalIncome: String {
         return formatCurrency(totalIncome)
     }
@@ -150,5 +152,32 @@ class DashboardViewModel: ObservableObject {
         formatter.minimumFractionDigits = 2
         
         return formatter.string(from: NSNumber(value: value)) ?? "£0.00"
+    }
+    
+    // MARK: - 錯誤處理
+    
+    override func canRecoverFromError(_ error: Error) -> Bool {
+        // 某些網絡錯誤可以通過重試恢復
+        if let nsError = error as NSError? {
+            return nsError.domain == NSURLErrorDomain &&
+                   (nsError.code == NSURLErrorNetworkConnectionLost ||
+                    nsError.code == NSURLErrorNotConnectedToInternet ||
+                    nsError.code == NSURLErrorTimedOut)
+        }
+        return false
+    }
+    
+    override func attemptRecovery(from error: Error) {
+        // 自動重試一次
+        print("嘗試恢復並重新加載儀表板數據...")
+        DispatchQueue.main.asyncAfter(deadline: .now() + 1) { [weak self] in
+            self?.loadDashboardData()
+        }
+    }
+}
+
+extension DashboardData {
+    var isEmpty: Bool {
+        return summary.totalIncome == 0 && summary.totalExpense == 0 && metrics.totalWorkHours == 0 && metrics.totalMileage == 0
     }
 }

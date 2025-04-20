@@ -62,6 +62,11 @@
 		52ED82772DB2405600F9EFFB /* MileageFormView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52ED82742DB2405500F9EFFB /* MileageFormView.swift */; };
 		52ED82782DB2405600F9EFFB /* MileageListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52ED82752DB2405500F9EFFB /* MileageListView.swift */; };
 		52ED82792DB2405600F9EFFB /* MileageViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52ED82762DB2405600F9EFFB /* MileageViewModel.swift */; };
+		52ED827B2DB4691000F9EFFB /* ErrorHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52ED827A2DB4691000F9EFFB /* ErrorHandler.swift */; };
+		52ED827D2DB4692100F9EFFB /* BaseViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52ED827C2DB4692100F9EFFB /* BaseViewModel.swift */; };
+		52ED82822DB4708800F9EFFB /* MileageRowView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52ED827F2DB4708700F9EFFB /* MileageRowView.swift */; };
+		52ED82832DB4708800F9EFFB /* MileageStatsCardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52ED82802DB4708700F9EFFB /* MileageStatsCardView.swift */; };
+		52ED82842DB4708800F9EFFB /* MileageFormViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52ED82812DB4708700F9EFFB /* MileageFormViewModel.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -143,6 +148,11 @@
 		52ED82742DB2405500F9EFFB /* MileageFormView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MileageFormView.swift; sourceTree = "<group>"; };
 		52ED82752DB2405500F9EFFB /* MileageListView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MileageListView.swift; sourceTree = "<group>"; };
 		52ED82762DB2405600F9EFFB /* MileageViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MileageViewModel.swift; sourceTree = "<group>"; };
+		52ED827A2DB4691000F9EFFB /* ErrorHandler.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ErrorHandler.swift; sourceTree = "<group>"; };
+		52ED827C2DB4692100F9EFFB /* BaseViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BaseViewModel.swift; sourceTree = "<group>"; };
+		52ED827F2DB4708700F9EFFB /* MileageRowView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MileageRowView.swift; sourceTree = "<group>"; };
+		52ED82802DB4708700F9EFFB /* MileageStatsCardView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MileageStatsCardView.swift; sourceTree = "<group>"; };
+		52ED82812DB4708700F9EFFB /* MileageFormViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MileageFormViewModel.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -245,6 +255,7 @@
 			children = (
 				52ED82012DB231B600F9EFFB /* DriveNoteApp.swift */,
 				52ED82022DB231B600F9EFFB /* AppDelegate.swift */,
+				52ED827A2DB4691000F9EFFB /* ErrorHandler.swift */,
 				52ED82032DB231B600F9EFFB /* DIContainer.swift */,
 			);
 			path = App;
@@ -424,6 +435,7 @@
 		52ED82372DB231B700F9EFFB /* Common */ = {
 			isa = PBXGroup;
 			children = (
+				52ED827C2DB4692100F9EFFB /* BaseViewModel.swift */,
 				52ED82382DB231B700F9EFFB /* Components */,
 				52ED823D2DB231B700F9EFFB /* Theme.swift */,
 				52ED823E2DB231B700F9EFFB /* ContentView.swift */,
@@ -447,10 +459,21 @@
 			children = (
 				52ED82402DB231B700F9EFFB /* MileageView.swift */,
 				52ED82742DB2405500F9EFFB /* MileageFormView.swift */,
+				52ED827E2DB4708700F9EFFB /* Components */,
+				52ED82812DB4708700F9EFFB /* MileageFormViewModel.swift */,
 				52ED82752DB2405500F9EFFB /* MileageListView.swift */,
 				52ED82762DB2405600F9EFFB /* MileageViewModel.swift */,
 			);
 			path = Mileage;
+			sourceTree = "<group>";
+		};
+		52ED827E2DB4708700F9EFFB /* Components */ = {
+			isa = PBXGroup;
+			children = (
+				52ED827F2DB4708700F9EFFB /* MileageRowView.swift */,
+				52ED82802DB4708700F9EFFB /* MileageStatsCardView.swift */,
+			);
+			path = Components;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -581,10 +604,12 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				52ED827B2DB4691000F9EFFB /* ErrorHandler.swift in Sources */,
 				52ED825B2DB231B800F9EFFB /* Receipt.swift in Sources */,
 				52ED824C2DB231B800F9EFFB /* IncomeRepositoryImpl.swift in Sources */,
 				52ED82712DB2403200F9EFFB /* ReceiptGalleryView.swift in Sources */,
 				52ED82542DB231B800F9EFFB /* DashboardUseCases.swift in Sources */,
+				52ED827D2DB4692100F9EFFB /* BaseViewModel.swift in Sources */,
 				52ED82582DB231B800F9EFFB /* ExpenseCategory.swift in Sources */,
 				52ED82782DB2405600F9EFFB /* MileageListView.swift in Sources */,
 				52ED826C2DB231B800F9EFFB /* MileageView.swift in Sources */,
@@ -594,6 +619,7 @@
 				52ED82622DB231B800F9EFFB /* ExpenseListViewModel.swift in Sources */,
 				52ED82612DB231B800F9EFFB /* ExpensesView.swift in Sources */,
 				52ED82632DB231B800F9EFFB /* WorkHoursView.swift in Sources */,
+				52ED82822DB4708800F9EFFB /* MileageRowView.swift in Sources */,
 				52ED82592DB231B800F9EFFB /* Period.swift in Sources */,
 				52ED82562DB231B800F9EFFB /* WorkHoursUseCases.swift in Sources */,
 				52ED82722DB2403200F9EFFB /* ReceiptCaptureView.swift in Sources */,
@@ -623,8 +649,10 @@
 				52ED7D662DB1D89400F9EFFB /* drivenoteApp.swift in Sources */,
 				52ED825C2DB231B800F9EFFB /* Expense.swift in Sources */,
 				52ED824B2DB231B800F9EFFB /* ExpenseRepositoryImpl.swift in Sources */,
+				52ED82832DB4708800F9EFFB /* MileageStatsCardView.swift in Sources */,
 				52ED82692DB231B800F9EFFB /* GradientButton.swift in Sources */,
 				52ED82502DB231B800F9EFFB /* IncomeRepository.swift in Sources */,
+				52ED82842DB4708800F9EFFB /* MileageFormViewModel.swift in Sources */,
 				52ED826B2DB231B800F9EFFB /* ContentView.swift in Sources */,
 				52ED82792DB2405600F9EFFB /* MileageViewModel.swift in Sources */,
 				52ED824F2DB231B800F9EFFB /* MileageRepository.swift in Sources */,

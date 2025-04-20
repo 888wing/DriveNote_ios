@@ -1,4 +1,5 @@
 import SwiftUI
+import Combine
 
 struct MileageListView: View {
     @ObservedObject var viewModel: MileageViewModel
@@ -21,7 +22,7 @@ struct MileageListView: View {
                     }
                 }
             }
-            .onDelete(perform: viewModel.deleteMileage)
+            .onDelete(perform: viewModel.deleteMileage(at:))
         }
         .toolbar {
             ToolbarItem(placement: .navigationBarTrailing) {
@@ -37,7 +38,14 @@ struct MileageListView: View {
             }
         }
         .sheet(isPresented: $showAddForm) {
-            MileageFormView(viewModel: viewModel.formViewModel(for: selectedMileage))
+            NavigationView {
+                MileageFormView(
+                    viewModel: DIContainer.shared.makeMileageFormViewModel(mileage: selectedMileage),
+                    onSaved: {
+                        viewModel.loadMileages()
+                    }
+                )
+            }
         }
     }
 }

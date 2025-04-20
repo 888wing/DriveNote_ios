@@ -2,90 +2,236 @@ import SwiftUI
 import CoreData
 import Combine
 
-// 緊急修復視圖 - 用於繞過 Core Data 問題
-struct AppFixerView: View {
-    @State private var message = "正在進行應用程序診斷..."
-    @State private var showMainApp = false
-    @State private var showEmergencySettings = false
+// MARK: - 應用狀態管理
+class AppState: ObservableObject {
+    static let shared = AppState()
+    
+    @Published var isDataStoreReady = false
+    @Published var initializationError: Error? = nil
+    @Published var isInitializing = false
+    @Published var diagnosticMessage = "準備初始化..."
+    
+    private var cancellables = Set<AnyCancellable>()
+    
+    private init() {}
+    
+    func initializeDataStore() {
+        guard !isInitializing else { return }
+        
+        isInitializing = true
+        diagnosticMessage = "正在初始化數據存儲..."
+        
+        // 延遲一點初始化，讓UI有時間渲染
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+            self.performInitialization()
+        }
+    }
+    
+    private func performInitialization() {
+        // 嘗試初始化 Core Data 堆棧
+        CoreDataManager.shared.initializeStack()
+            .receive(on: RunLoop.main)
+            .sink(
+                receiveCompletion: { [weak self] completion in
+                    self?.isInitializing = false
+                    
+                    if case .failure(let error) = completion {
+                        self?.handleInitializationError(error)
+                    }
+                },
+                receiveValue: { [weak self] success in
+                    self?.diagnosticMessage = "數據存儲初始化成功!"
+                    self?.isDataStoreReady = success
+                }
+            )
+            .store(in: &cancellables)
+    }
+    
+    private func handleInitializationError(_ error: Error) {
+        initializationError = error
+        diagnosticMessage = "初始化失敗: \(error.localizedDescription)"
+        
+        // 嘗試使用內存數據庫作為備用選項
+        print("嘗試使用內存數據庫作為備用...")
+        diagnosticMessage = "嘗試使用臨時數據庫..."
+        
+        CoreDataManager.shared.initializeInMemoryStore()
+            .receive(on: RunLoop.main)
+            .sink(
+                receiveCompletion: { [weak self] completion in
+                    if case .failure(let error) = completion {
+                        self?.diagnosticMessage = "無法創建臨時數據庫: \(error.localizedDescription)"
+                        // 完全失敗，保持 isDataStoreReady = false
+                    }
+                },
+                receiveValue: { [weak self] success in
+                    if success {
+                        self?.diagnosticMessage = "已創建臨時數據庫 (數據不會永久保存)"
+                        self?.isDataStoreReady = true
+                    }
+                }
+            )
+            .store(in: &cancellables)
+    }
+}
+
+// MARK: - 應用初始化視圖
+struct AppInitializationView: View {
+    @EnvironmentObject private var appState: AppState
+    @State private var showDiagnosticOptions = false
     
     var body: some View {
         VStack(spacing: 20) {
-            Image(systemName: "wrench.and.screwdriver")
-                .font(.system(size: 60))
-                .foregroundColor(.orange)
+            // 頂部圖標和標題
+            VStack(spacing: 12) {
+                Image(systemName: appState.initializationError != nil ? "exclamationmark.triangle.fill" : "arrow.clockwise.circle")
+                    .font(.system(size: 60))
+                    .foregroundColor(appState.initializationError != nil ? .orange : .blue)
+                    .padding()
+                
+                Text("DriveNote")
+                    .font(.largeTitle)
+                    .bold()
+                
+                Text(appState.initializationError != nil ? "啟動診斷" : "應用程序初始化")
+                    .font(.title3)
+                    .foregroundColor(.secondary)
+            }
             
-            Text("DriveNote 修復模式")
-                .font(.title)
-                .bold()
-            
-            Text(message)
-                .font(.body)
-                .multilineTextAlignment(.center)
-                .padding()
-                .onAppear {
-                    diagnoseApp()
-                }
-            
-            if showEmergencySettings {
-                Button(action: {
-                    showEmergencySettings = true
-                }) {
-                    Text("進入應急設置")
+            // 狀態信息
+            VStack(spacing: 8) {
+                if appState.isInitializing {
+                    ProgressView()
+                        .scaleEffect(1.5)
                         .padding()
-                        .background(Color.orange)
+                }
+                
+                Text(appState.diagnosticMessage)
+                    .font(.body)
+                    .multilineTextAlignment(.center)
+                    .foregroundColor(.secondary)
+                    .padding(.horizontal)
+                    .animation(.easeInOut, value: appState.diagnosticMessage)
+            }
+            .frame(height: 100)
+            
+            // 操作按鈕
+            VStack(spacing: 12) {
+                // 顯示當啟動失敗時
+                if appState.initializationError != nil {
+                    Button(action: {
+                        appState.initializeDataStore()
+                    }) {
+                        HStack {
+                            Image(systemName: "arrow.clockwise")
+                            Text("重試")
+                        }
+                        .frame(maxWidth: .infinity)
+                        .padding()
+                        .background(Color.blue)
                         .foregroundColor(.white)
                         .cornerRadius(10)
+                    }
+                    
+                    Button(action: {
+                        showDiagnosticOptions = true
+                    }) {
+                        HStack {
+                            Image(systemName: "wrench.and.screwdriver")
+                            Text("診斷選項")
+                        }
+                        .frame(maxWidth: .infinity)
+                        .padding()
+                        .background(Color.secondary)
+                        .foregroundColor(.white)
+                        .cornerRadius(10)
+                    }
+                    .actionSheet(isPresented: $showDiagnosticOptions) {
+                        ActionSheet(
+                            title: Text("診斷選項"),
+                            message: Text("選擇一個操作來嘗試修復應用"),
+                            buttons: [
+                                .default(Text("使用臨時數據庫")) {
+                                    createTempDatabase()
+                                },
+                                .destructive(Text("重置數據庫")) {
+                                    resetDatabase()
+                                },
+                                .cancel()
+                            ]
+                        )
+                    }
                 }
-                .sheet(isPresented: $showEmergencySettings) {
-                    NavigationView {
-                        EmergencySettingsView()
-                            .navigationTitle("應急設置")
+                
+                // 當成功使用臨時數據庫時顯示
+                if appState.isDataStoreReady && appState.initializationError != nil {
+                    Button(action: {
+                        // 強制進入應用，使用臨時數據庫
+                        appState.isDataStoreReady = true
+                    }) {
+                        HStack {
+                            Image(systemName: "arrow.right.circle")
+                            Text("繼續使用臨時數據庫")
+                        }
+                        .frame(maxWidth: .infinity)
+                        .padding()
+                        .background(Color.green)
+                        .foregroundColor(.white)
+                        .cornerRadius(10)
                     }
                 }
             }
+            .padding(.horizontal)
             
-            Button(action: {
-                resetCoreDataStore()
-            }) {
-                Text("重置數據庫並重試")
+            Spacer()
+            
+            // 底部提示
+            if appState.initializationError != nil {
+                Text("數據可能無法永久保存，請先嘗試修復")
+                    .font(.caption)
+                    .foregroundColor(.secondary)
+                    .multilineTextAlignment(.center)
                     .padding()
-                    .background(Color.blue)
-                    .foregroundColor(.white)
-                    .cornerRadius(10)
             }
-            .padding(.top)
         }
         .padding()
         .frame(maxWidth: .infinity, maxHeight: .infinity)
         .background(Color(.systemGroupedBackground))
         .edgesIgnoringSafeArea(.all)
-    }
-    
-    func diagnoseApp() {
-        // 檢查 Core Data 模型是否存在
-        DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
-            message = "檢查數據模型文件中..."
-            
-            // 檢查是否能創建內存數據庫
-            let description = NSPersistentStoreDescription()
-            description.type = NSInMemoryStoreType
-            
-            let container = NSPersistentContainer(name: "drivenote")
-            container.persistentStoreDescriptions = [description]
-            
-            container.loadPersistentStores { (_, error) in
-                if let error = error {
-                    message = "數據模型有問題: \(error.localizedDescription)"
-                    showEmergencySettings = true
-                } else {
-                    message = "數據模型正常，但 SQLite 存儲可能損壞。請重置數據庫。"
-                }
+        .onAppear {
+            if !appState.isInitializing && !appState.isDataStoreReady {
+                appState.initializeDataStore()
             }
         }
     }
     
-    func resetCoreDataStore() {
-        message = "正在重置數據庫..."
+    // 創建臨時數據庫
+    private func createTempDatabase() {
+        appState.diagnosticMessage = "創建臨時數據庫中..."
+        
+        CoreDataManager.shared.initializeInMemoryStore()
+            .receive(on: RunLoop.main)
+            .sink(
+                receiveCompletion: { completion in
+                    if case .failure(let error) = completion {
+                        appState.diagnosticMessage = "創建臨時數據庫失敗: \(error.localizedDescription)"
+                    }
+                },
+                receiveValue: { success in
+                    if success {
+                        appState.diagnosticMessage = "臨時數據庫創建成功"
+                        appState.isDataStoreReady = true
+                    } else {
+                        appState.diagnosticMessage = "臨時數據庫創建失敗"
+                    }
+                }
+            )
+            .store(in: &CoreDataManager.shared.cancellables)
+    }
+    
+    // 重置數據庫
+    private func resetDatabase() {
+        appState.diagnosticMessage = "正在重置數據庫..."
         
         // 移除 SQLite 文件
         let fileManager = FileManager.default
@@ -105,7 +251,7 @@ struct AppFixerView: View {
                 do {
                     try fileManager.removeItem(at: url)
                 } catch {
-                    message = "無法刪除數據庫文件: \(error.localizedDescription)"
+                    appState.diagnosticMessage = "刪除 \(url.lastPathComponent) 失敗: \(error.localizedDescription)"
                     success = false
                     break
                 }
@@ -113,315 +259,35 @@ struct AppFixerView: View {
         }
         
         if success {
-            message = "數據庫已重置，應用將在3秒後重新啟動..."
-            DispatchQueue.main.asyncAfter(deadline: .now() + 3) {
-                exit(0) // 強制關閉應用，用戶需要手動重啟
-            }
-        }
-    }
-}
-
-// 緊急設置視圖
-struct EmergencySettingsView: View {
-    @State private var showAlert = false
-    @State private var alertMessage = ""
-    
-    var body: some View {
-        List {
-            Section(header: Text("診斷工具")) {
-                Button("檢查文件系統") {
-                    checkFileSystem()
-                }
-                
-                Button("檢查數據模型") {
-                    checkDataModel()
-                }
-                
-                Button("重置應用") {
-                    resetAllData()
-                }
-            }
+            appState.diagnosticMessage = "數據庫已重置，正在重新初始化..."
             
-            Section(header: Text("狀態信息")) {
-                HStack {
-                    Text("iOS 版本")
-                    Spacer()
-                    Text(UIDevice.current.systemVersion)
-                        .foregroundColor(.secondary)
-                }
-                
-                HStack {
-                    Text("設備型號")
-                    Spacer()
-                    Text(UIDevice.current.model)
-                        .foregroundColor(.secondary)
-                }
-                
-                HStack {
-                    Text("可用空間")
-                    Spacer()
-                    Text(getAvailableSpace())
-                        .foregroundColor(.secondary)
-                }
+            // 延遲一下再重新初始化
+            DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
+                appState.initializationError = nil
+                appState.isDataStoreReady = false
+                appState.initializeDataStore()
             }
         }
-        .listStyle(InsetGroupedListStyle())
-        .alert(isPresented: $showAlert) {
-            Alert(title: Text("診斷結果"), message: Text(alertMessage), dismissButton: .default(Text("確定")))
-        }
-    }
-    
-    func checkFileSystem() {
-        let fileManager = FileManager.default
-        let documentsUrl = fileManager.urls(for: .documentDirectory, in: .userDomainMask)[0]
-        
-        do {
-            let files = try fileManager.contentsOfDirectory(at: documentsUrl, includingPropertiesForKeys: nil)
-            alertMessage = "找到 \(files.count) 個文件:\n" + files.map { $0.lastPathComponent }.joined(separator: "\n")
-        } catch {
-            alertMessage = "無法讀取文件系統: \(error.localizedDescription)"
-        }
-        
-        showAlert = true
-    }
-    
-    func checkDataModel() {
-        let modelURL = Bundle.main.url(forResource: "drivenote", withExtension: "momd")
-        
-        if modelURL != nil {
-            alertMessage = "找到數據模型文件"
-        } else {
-            alertMessage = "找不到數據模型文件!\n這是導致問題的主要原因。"
-        }
-        
-        showAlert = true
-    }
-    
-    func resetAllData() {
-        // 清除應用的所有數據
-        let domain = Bundle.main.bundleIdentifier!
-        UserDefaults.standard.removePersistentDomain(forName: domain)
-        
-        // 刪除所有文件
-        let fileManager = FileManager.default
-        let documentsUrl = fileManager.urls(for: .documentDirectory, in: .userDomainMask)[0]
-        
-        do {
-            let files = try fileManager.contentsOfDirectory(at: documentsUrl, includingPropertiesForKeys: nil)
-            for file in files {
-                try fileManager.removeItem(at: file)
-            }
-            alertMessage = "已清除所有應用數據。請完全退出應用並重新啟動。"
-        } catch {
-            alertMessage = "清除數據失敗: \(error.localizedDescription)"
-        }
-        
-        showAlert = true
-    }
-    
-    func getAvailableSpace() -> String {
-        do {
-            let fileURL = URL(fileURLWithPath: NSHomeDirectory())
-            let values = try fileURL.resourceValues(forKeys: [.volumeAvailableCapacityForImportantUsageKey])
-            if let capacity = values.volumeAvailableCapacityForImportantUsage {
-                let formatter = ByteCountFormatter()
-                formatter.allowedUnits = [.useGB]
-                formatter.countStyle = .file
-                return formatter.string(fromByteCount: Int64(capacity))
-            }
-        } catch {
-            return "無法獲取"
-        }
-        return "無法獲取"
     }
 }
 
+// MARK: - 應用主入口點
 @main
 struct DriveNoteApp: App {
     @UIApplicationDelegateAdaptor(AppDelegate.self) var appDelegate
+    @StateObject private var appState = AppState.shared
     
-    // 完全繞過 Core Data 初始化，直接進入緊急修復模式
     var body: some Scene {
         WindowGroup {
-            // 直接顯示緊急修復視圖
-            VStack(spacing: 20) {
-                Image(systemName: "exclamationmark.triangle.fill")
-                    .font(.system(size: 60))
-                    .foregroundColor(.orange)
-                
-                Text("緊急啟動模式")
-                    .font(.title)
-                    .bold()
-                
-                Text("檢測到應用程序數據庫問題")
-                    .font(.body)
-                    .multilineTextAlignment(.center)
-                    .padding()
-                
-                Text("請使用以下選項修復應用")
-                    .font(.subheadline)
-                    .foregroundColor(.secondary)
-                    .multilineTextAlignment(.center)
-                    .padding(.horizontal)
-                
-                Button(action: {
-                    // 進入主應用（Tab 導航）
-                    showSettingsView()
-                }) {
-                    HStack {
-                        Image(systemName: "tablecells")
-                        Text("進入主應用")
-                    }
-                    .padding()
-                    .frame(maxWidth: .infinity)
-                    .background(Color.blue)
-                    .foregroundColor(.white)
-                    .cornerRadius(10)
-                }
-                .padding(.top)
-                
-                Button(action: {
-                    // 重置數據庫
-                    performDatabaseReset()
-                }) {
-                    HStack {
-                        Image(systemName: "arrow.clockwise")
-                        Text("重置數據庫")
-                    }
-                    .padding()
-                    .frame(maxWidth: .infinity)
-                    .background(Color.orange)
-                    .foregroundColor(.white)
-                    .cornerRadius(10)
-                }
-                .padding(.top, 5)
-                
-                Button(action: {
-                    // 嘗試修復
-                    performAdvancedRepair()
-                }) {
-                    HStack {
-                        Image(systemName: "wrench.and.screwdriver")
-                        Text("高級修復工具")
-                    }
-                    .padding()
-                    .frame(maxWidth: .infinity)
-                    .background(Color.gray)
-                    .foregroundColor(.white)
-                    .cornerRadius(10)
-                }
-                .padding(.top, 5)
-            }
-            .padding(30)
-        }
-    }
-    
-    // 顯示主應用（包含 TabView）
-    private func showSettingsView() {
-        if let windowScene = UIApplication.shared.connectedScenes.first as? UIWindowScene,
-           let window = windowScene.windows.first {
-            let contentView = ContentView()
-            window.rootViewController = UIHostingController(rootView: contentView)
-            
-            // 打印一條日誌信息
-            print("已切換到主應用 ContentView，應該顯示 TabView")
-        }
-    }
-    
-    // 執行數據庫重置
-    private func performDatabaseReset() {
-        // 移除 SQLite 文件
-        let fileManager = FileManager.default
-        let documentsUrl = fileManager.urls(for: .documentDirectory, in: .userDomainMask)[0]
-        let storeUrl = documentsUrl.appendingPathComponent("drivenote.sqlite")
-        
-        print("嘗試刪除數據庫文件: \(storeUrl.path)")
-        
-        // 嘗試刪除相關 Core Data 文件
-        let filesToDelete = [
-            storeUrl,
-            storeUrl.appendingPathExtension("shm"),
-            storeUrl.appendingPathExtension("wal")
-        ]
-        
-        for url in filesToDelete {
-            do {
-                if fileManager.fileExists(atPath: url.path) {
-                    try fileManager.removeItem(at: url)
-                    print("已刪除: \(url.path)")
-                } else {
-                    print("文件不存在: \(url.path)")
-                }
-            } catch {
-                print("刪除 \(url.path) 失敗: \(error.localizedDescription)")
-            }
-        }
-        
-        // 顯示重啟提示
-        let alert = UIAlertController(
-            title: "數據庫已重置",
-            message: "請完全關閉應用並重新啟動。",
-            preferredStyle: .alert
-        )
-        alert.addAction(UIAlertAction(title: "確定", style: .default))
-        
-        if let windowScene = UIApplication.shared.connectedScenes.first as? UIWindowScene,
-           let rootViewController = windowScene.windows.first?.rootViewController {
-            rootViewController.present(alert, animated: true)
-        }
-    }
-    
-    // 執行高級修復
-    private func performAdvancedRepair() {
-        // 檢查是否可以創建臨時內存數據庫
-        let container = NSPersistentContainer(name: "TempContainer")
-        let description = NSPersistentStoreDescription()
-        description.type = NSInMemoryStoreType
-        container.persistentStoreDescriptions = [description]
-        
-        // 嘗試載入
-        container.loadPersistentStores { _, error in
-            var message = "診斷結果:\n\n"
-            
-            if let error = error {
-                message += "• 無法創建臨時數據庫: \(error.localizedDescription)\n"
+            if appState.isDataStoreReady {
+                // 正常模式 - 顯示主要內容
+                ContentView()
+                    .environmentObject(appState)
             } else {
-                message += "• 臨時數據庫創建成功\n"
-            }
-            
-            // 檢查模型文件是否存在
-            let modelURL = Bundle.main.url(forResource: "drivenote", withExtension: "momd")
-            if modelURL != nil {
-                message += "• 數據模型文件存在\n"
-            } else {
-                message += "• 數據模型文件不存在!\n"
-            }
-            
-            // 檢查 SQLite 文件
-            let fileManager = FileManager.default
-            let documentsUrl = fileManager.urls(for: .documentDirectory, in: .userDomainMask)[0]
-            let storeUrl = documentsUrl.appendingPathComponent("drivenote.sqlite")
-            
-            if fileManager.fileExists(atPath: storeUrl.path) {
-                message += "• SQLite 數據庫文件存在\n"
-            } else {
-                message += "• SQLite 數據庫文件不存在\n"
-            }
-            
-            // 顯示診斷結果
-            let alert = UIAlertController(
-                title: "診斷結果",
-                message: message,
-                preferredStyle: .alert
-            )
-            alert.addAction(UIAlertAction(title: "確定", style: .default))
-            
-            if let windowScene = UIApplication.shared.connectedScenes.first as? UIWindowScene,
-               let rootViewController = windowScene.windows.first?.rootViewController {
-                rootViewController.present(alert, animated: true)
+                // 安全模式 - 顯示初始化界面
+                AppInitializationView()
+                    .environmentObject(appState)
             }
         }
     }
-    
-    // 這裡沒有額外的方法，刪除舊的未使用方法
 }

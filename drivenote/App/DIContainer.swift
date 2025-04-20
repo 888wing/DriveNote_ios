@@ -160,20 +160,20 @@ class DIContainer {
         )
     }
     
-    // 以下 ViewModel 工廠方法將在實現對應功能時解除註釋
-    
-    /*
-    func makeMileageListViewModel() -> MileageListViewModel {
-        return MileageListViewModel(getMileageUseCase: getMileageUseCase, deleteMileageUseCase: deleteMileageUseCase)
+    // Mileage ViewModels
+    func makeMileageViewModel() -> MileageViewModel {
+        return MileageViewModel(repository: mileageRepository)
     }
     
     func makeMileageFormViewModel(mileage: Mileage? = nil) -> MileageFormViewModel {
         return MileageFormViewModel(
-            mileage: mileage,
-            saveMileageUseCase: saveMileageUseCase
+            repository: mileageRepository,
+            mileage: mileage
         )
     }
     
+    // 以下 ViewModel 工廠方法將在實現對應功能時解除註釋
+    /*
     func makeWorkHoursListViewModel() -> WorkHoursListViewModel {
         return WorkHoursListViewModel(
             getWorkHoursUseCase: getWorkHoursUseCase,

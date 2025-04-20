@@ -1,97 +1,96 @@
 import UIKit
 import CoreData
 import Combine
-// import Firebase  // 註解掉 Firebase 導入
 
 class AppDelegate: NSObject, UIApplicationDelegate {
+    var cancellables = Set<AnyCancellable>()
+    
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey : Any]? = nil) -> Bool {
+        // 配置應用程序
+        configureApp()
         
-        // Configure Firebase - Commented out for MVP phase 1
-        // FirebaseApp.configure()
+        // 設置日誌和錯誤處理
+        setupLogging()
         
-        // 不再啟動時立即進行 Core Data 驗證，避免啟動崩潰
-        print("AppDelegate: 應用程序啟動，跳過 Core Data 驗證")
-        
+        print("AppDelegate: 應用程序啟動完成")
         return true
     }
     
-    private func verifyCoreDateEntities() {
-        print("AppDelegate: 嘗試驗證 Core Data 實體...")
+    private func configureApp() {
+        // 配置 UserDefaults 默認值
+        setupDefaultSettings()
         
-        // 延遲執行以確保 Core Data 堆棧已完全初始化
-        DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) {
-            // 安全地獲取 context
-            let context = CoreDataManager.shared.viewContext
-            
-            // 檢查實體是否存在
-            print("AppDelegate: 開始驗證 Core Data 實體")
-            let entityNames = ["CDExpense", "CDMileage", "CDWorkHours", "CDReceipt", "CDIncome"]
-            
-            var allEntitiesValid = true
-            
-            for entityName in entityNames {
-                let fetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: entityName)
-                fetchRequest.fetchLimit = 1
-                
-                do {
-                    _ = try context.fetch(fetchRequest)
-                    print("✅ Core Data 實體: \(entityName) - 成功")
-                } catch {
-                    print("❌ Core Data 實體: \(entityName) - 失敗: \(error)")
-                    allEntitiesValid = false
-                }
-            }
-            
-            if allEntitiesValid {
-                print("✅✅ 所有 Core Data 實體驗證成功")
-                self.insertSampleDataIfNeeded()
-            } else {
-                print("⚠️⚠️ 部分 Core Data 實體驗證失敗!")
-            }
+        // 配置外觀
+        configureAppearance()
+        
+        // 配置通知 (如果需要)
+        // setupNotifications()
+        
+        // 禁用「返回」手勢 (如果需要)
+        // UINavigationController.disableSwipeBackGesture()
+    }
+    
+    private func setupDefaultSettings() {
+        // 設置默認偏好
+        let defaults: [String: Any] = [
+            "currencyCode": "GBP",
+            "distanceUnit": "miles",
+            "syncEnabled": false,
+            "isFirstLaunch": true,
+            "appVersion": Bundle.main.infoDictionary?["CFBundleShortVersionString"] as? String ?? "1.0"
+        ]
+        
+        UserDefaults.standard.register(defaults: defaults)
+    }
+    
+    private func configureAppearance() {
+        // 配置全局 UI 外觀
+        if #available(iOS 15.0, *) {
+            let appearance = UINavigationBarAppearance()
+            appearance.configureWithOpaqueBackground()
+            UINavigationBar.appearance().standardAppearance = appearance
+            UINavigationBar.appearance().scrollEdgeAppearance = appearance
         }
     }
     
-    private func insertSampleDataIfNeeded() {
-        // 檢查是否已有任何支出數據
-        let context = CoreDataManager.shared.viewContext
-        let fetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: "CDExpense")
-        fetchRequest.fetchLimit = 1
+    private func setupLogging() {
+        // 設置日誌系統
+        print("AppDelegate: 初始化日誌系統")
         
-        do {
-            let result = try context.fetch(fetchRequest)
-            if result.isEmpty {
-                print("📊 插入樣本數據以便測試...")
-                _ = createSampleExpense()
-            } else {
-                print("👍 已存在數據，無需插入樣本")
-            }
-        } catch {
-            print("❌ 檢查支出記錄時出錯: \(error)")
+        // 捕獲未處理的異常
+        NSSetUncaughtExceptionHandler { exception in
+            print("未捕獲的異常: \(exception)")
+            print("原因: \(String(describing: exception.reason))")
+            print("調用堆棧: \(exception.callStackSymbols)")
+            
+            // 將NSException轉化為NSError
+            let error = NSError(
+                domain: "UncaughtException",
+                code: 0,
+                userInfo: [
+                    NSLocalizedDescriptionKey: exception.reason ?? "未知異常",
+                    "ExceptionName": exception.name.rawValue,
+                    "CallStack": exception.callStackSymbols
+                ]
+            )
+            
+            // 記錄到我們的錯誤處理器
+            ErrorHandler.shared.handle(
+                error,
+                source: .general,
+                additionalInfo: ["callStack": exception.callStackSymbols],
+                isUserVisible: true
+            )
         }
     }
     
-    private func createSampleExpense() -> AnyPublisher<Void, Error> {
-        return CoreDataManager.shared.performBackgroundTask { context in
-            let expense = CDExpense(context: context)
-            expense.id = UUID()
-            expense.date = Date()
-            expense.amount = 88.88
-            expense.category = "fuel"
-            expense.descriptionText = "樣本數據：加油"
-            expense.isTaxDeductible = true
-            expense.taxDeductiblePercentage = 100
-            expense.creationMethod = "manual"
-            expense.isUploaded = false
-            expense.lastModified = Date()
-            
-            do {
-                try context.save()
-                print("✅ 樣本數據創建成功")
-            } catch {
-                print("❌ 樣本數據創建失敗: \(error)")
-            }
-            
-            return () // 返回空元組，滿足返回類型
-        }
+    // MARK: - UISceneSession Lifecycle
+    
+    func application(_ application: UIApplication, configurationForConnecting connectingSceneSession: UISceneSession, options: UIScene.ConnectionOptions) -> UISceneConfiguration {
+        return UISceneConfiguration(name: "Default Configuration", sessionRole: connectingSceneSession.role)
+    }
+    
+    func application(_ application: UIApplication, didDiscardSceneSessions sceneSessions: Set<UISceneSession>) {
+        // 場景被丟棄時調用，例如用戶關閉多個窗口
     }
 }
